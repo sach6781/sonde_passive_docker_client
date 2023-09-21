@@ -1,24 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
-
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import DockerClient from './DockerClient';
+import DashBoard from './DashBoard';
+import { Link, useNavigate } from 'react-router-dom';
+import Home from './Home';
+import Enrollment from './Enrollment';
+import Recorder from './Recorder';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Router>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/enrollment" element={<Enrollment />} />
+        <Route path="/recorder" element={<Recorder />} />
+        <Route path="/" element={<Navigate to="/home" />} />
+      </Routes>
+    </Router>
+
+
     </div>
   );
 }
