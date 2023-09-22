@@ -35,6 +35,18 @@ class Enrollment extends React.Component {
     this.getUserHistory()
   }
 
+
+  deleteUser = (userId) => {
+    console.log('getting user - ', userId)
+
+    fetch('https://teams.dev.sondeservices.com/api/user-management/user/' + userId)
+    .then(response => response.json())
+    .then(result => {
+      console.log('Delete Response - ', result)
+      this.getUserHistory()
+    });
+
+  }
   getUserHistory = () => {
 
     fetch('https://teams.dev.sondeservices.com/api/user-management/users')
@@ -92,6 +104,11 @@ class Enrollment extends React.Component {
                 <td><button>
                   RE-ENROLL
                 </button></td>
+                <td>
+                  <button onClick={() => this.deleteUser(item.identifier)}>
+                    DELETE
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

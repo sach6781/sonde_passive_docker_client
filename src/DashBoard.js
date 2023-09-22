@@ -53,7 +53,6 @@ class DashBoard extends React.Component {
         this.intervalId = setInterval(() => {
             console.log('This function is invoked every 5 seconds.');
             this.getUserScoreHistory()
-            // Perform any actions you want here
         }, 5000);
     }
 
