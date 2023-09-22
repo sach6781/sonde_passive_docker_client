@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sonde_passive_docker_client/static/css/main.073c9b0a.css",
-    "main.js": "/sonde_passive_docker_client/static/js/main.54c22e93.js",
+    "main.js": "/sonde_passive_docker_client/static/js/main.7c02461a.js",
     "static/js/787.b060116f.chunk.js": "/sonde_passive_docker_client/static/js/787.b060116f.chunk.js",
     "index.html": "/sonde_passive_docker_client/index.html",
     "main.073c9b0a.css.map": "/sonde_passive_docker_client/static/css/main.073c9b0a.css.map",
-    "main.54c22e93.js.map": "/sonde_passive_docker_client/static/js/main.54c22e93.js.map",
+    "main.7c02461a.js.map": "/sonde_passive_docker_client/static/js/main.7c02461a.js.map",
     "787.b060116f.chunk.js.map": "/sonde_passive_docker_client/static/js/787.b060116f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.54c22e93.js"
+    "static/js/main.7c02461a.js"
   ]
 }
