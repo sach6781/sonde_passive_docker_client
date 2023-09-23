@@ -40,11 +40,11 @@ class Enrollment extends React.Component {
     console.log('getting user - ', userId)
 
     fetch('https://teams.dev.sondeservices.com/api/user-management/user/' + userId)
-    .then(response => response.json())
-    .then(result => {
-      console.log('Delete Response - ', result)
-      this.getUserHistory()
-    });
+      .then(response => response.json())
+      .then(result => {
+        console.log('Delete Response - ', result)
+        this.getUserHistory()
+      });
 
   }
   getUserHistory = () => {
@@ -77,23 +77,37 @@ class Enrollment extends React.Component {
   }
 
   render() {
+
+    const isEmpty = Object.keys(this.state.enrollment_data).length === 0;
+
     return (
       <div>
         <h1>
-          This is Enrollment File.
+          Enrollment
         </h1>
 
         <Link style={{ textDecoration: 'none', color: 'black' }} to="/dashboard">Dashboard</Link>
 
-        <h1>Data List</h1>
+        
+
+
+        <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%, -50%)', width: "30%", height: "10%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
         <table>
           <thead>
             <tr>
-              <th>Identifier</th>
-              <th>Status</th>
-              <th>
-                Action
-              </th>
+
+              {isEmpty ? (
+                <p>No User Enrollment Found in System!</p>
+              ) : (
+                <p>
+                  <h1>Data List</h1>
+                  <th>Identifier</th>
+                  <th>Status</th>
+                  <th>
+                    Action
+                  </th></p>
+              )}
+
             </tr>
           </thead>
           <tbody>
@@ -101,9 +115,6 @@ class Enrollment extends React.Component {
               <tr key={index}>
                 <td>{item.identifier}</td>
                 <td>ENROLLED</td>
-                <td><button>
-                  RE-ENROLL
-                </button></td>
                 <td>
                   <button onClick={() => this.deleteUser(item.identifier)}>
                     DELETE
@@ -112,11 +123,14 @@ class Enrollment extends React.Component {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> 
+        </div>
+
+
         <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', top: '70%', left: '50%', transform: 'translate(-50%, -50%)', width: "30%", height: "10%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
-          <h1 style={{ position: 'absolute', left: '50%', transform: 'translate(-50%, -50%)' }}>
-            <Link style={{ textDecoration: 'none', color: 'white' }} to="/recorder">Enroll New User</Link>
-          </h1>
+          <h3 style={{ font: '5px', position: 'absolute', left: '50%', transform: 'translate(-50%, -50%)' }}>
+            <Link style={{ textDecoration: 'none', color: 'white'}} to="/recorder">Enroll New User</Link>
+          </h3>
         </div>
       </div>
     );

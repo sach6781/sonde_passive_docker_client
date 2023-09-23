@@ -41,7 +41,7 @@ class ScoreSlider extends Component {
       <div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {isEmpty ? (
-          <p>The object is empty.</p>
+          <p>No user history data found in System!</p>
         ) : (
           <p></p>
         )}
