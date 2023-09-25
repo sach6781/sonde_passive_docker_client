@@ -49,6 +49,8 @@ class DashBoard extends React.Component {
             isRecording: false,
             blobURL: '',
             timer: 0, // Elapsed recording time in seconds
+            verified_user: '',
+            unverified: false
         };
         this.timer = null;
         this.micRecorder = new MicRecorder({ bitRate: 128 });
@@ -61,49 +63,45 @@ class DashBoard extends React.Component {
         this.intervalId = setInterval(() => {
             console.log('This function is invoked every 5 seconds.');
             this.getUserScoreHistory()
-        }, 20000);
+        }, 10000);
     }
 
     startRecording = () => {
         this.setState({ isRecording: true });
+        console.log('Recording started!')
         this.micRecorder.start().then(() => {
-            // Start a timer to measure elapsed time
             this.recordTimer = setInterval(() => {
                 this.setState((prevState) => ({ timer: prevState.timer + 1 }));
-
-                // Check if it's time to send data (every 10 seconds)
-                if (this.state.timer % 10 === 0) {
+                if (this.state.timer % 3.5 === 0) {
                     this.micRecorder
                         .stop()
                         .getMp3()
                         .then(([buffer, blob]) => {
-                            // Handle the recorded blob data and send it to the server
+                            console.log('Start audio file saved!')
                             const blobURL = URL.createObjectURL(blob);
                             this.setState({ blobURL });
                             this.generateVoiceFeatures(blob);
                         });
                     this.micRecorder.start(); // Resume recording
                 }
-            }, 1000);
+            }, 500);
         });
     }
 
     stopRecording = () => {
+        console.log('Recording stopped!')
         this.setState({ isRecording: false });
-        clearInterval(this.recordTimer); // Stop the timer
+        clearInterval(this.recordTimer);
         this.micRecorder.stop().getMp3().then(([buffer, blob]) => {
             // Handle the recorded blob data and send it to the server
+            console.log('Stop audio file saved!')
             const blobURL = URL.createObjectURL(blob);
             this.setState({ blobURL });
             this.generateVoiceFeatures(blob);
         });
     }
 
-
-
-
     getUserScoreHistory = () => {
-
         fetch('https://teams.dev.sondeservices.com/api/user-management/users-history')
             .then(response => response.json())
             .then(result => {
@@ -127,6 +125,13 @@ class DashBoard extends React.Component {
             .then(response => response.json())
             .then(result => {
                 console.log("Got the response from server for voice features - ", result)
+                if (result.hasOwnProperty('code')) {
+                    this.setState({ unverified: true })
+                }
+                if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
+                    this.setState({unverified: false, verified_user: result[0].user_identifier})
+                }
+
                 this.setState({ enrollmentStatus: true, enrollmentProgress: false })
             })
             .catch(error => console.log('error', error));
@@ -137,7 +142,7 @@ class DashBoard extends React.Component {
     handleClick = () => {
         if (!this.state.isRunning) {
             this.start();
-            this.timer = setInterval(this.start, 8000);
+            this.timer = setInterval(this.start, 3000);
         } else {
             clearInterval(this.timer);
         }
@@ -188,14 +193,23 @@ class DashBoard extends React.Component {
     render() {
         return (<div>
             <Header />
-            <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '40%', top: "50%", width: "20%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
+            <ScoreSlider data={this.state.userHistory} />
+            <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "5%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
                 {this.state.isRecording ? 'Stop Recording' : 'Start Recording'}
             </button>
-
             {/* {this.state.blobURL && (
                 <audio controls src={this.state.blobURL} />
             )} */}
-            <ScoreSlider data={this.state.userHistory} />
+            <div style={{ bottom: "0%" }} hidden={!this.state.isRecording}>
+                <h3>
+                    Please keep talking (on any topic)</h3>
+                <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
+            </div>
+            <div hidden={!this.state.isRecording}>
+                {this.state.unverified ? <h1> SEGMENT VERIFIED - UNVERIFIED</h1> : <h1>
+                SEGMENT VERIFIED - {this.state.verified_user} </h1>}
+            </div>
+
 
         </div>
         )

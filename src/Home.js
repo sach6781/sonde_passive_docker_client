@@ -17,12 +17,12 @@ function Home() {
 
   return (
     <div>
-      <h1>Welcome to the Home page!</h1>
+      <h1>Welcome to the Sonde Passive App!</h1>
 
       <div >
         <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: "30%", height: "10%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
-          <h1 style={{ position: 'absolute', left: '50%', transform: 'translate(-50%, -50%)'}}>
-          <Link style={{ textDecoration: 'none', color: 'white'}} to="/dashboard">Dashboard</Link>
+          <h1 style={{padding: "30px", margin: "12px", position: 'absolute', left: '40%',   transform: 'translate(-50%, -50%)'}}>
+          <Link style={{ textDecoration: 'none', color: 'white', fontSize: '20px'}} to="/dashboard">Dashboard</Link>
           </h1>
 
         </div>
@@ -31,8 +31,8 @@ function Home() {
         </br>
 
         <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', top: '70%', left: '50%', transform: 'translate(-50%, -50%)', width: "30%", height: "10%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
-          <h1 style={{ position: 'absolute', left: '50%', transform: 'translate(-50%, -50%)'}}>
-          <Link style={{ textDecoration: 'none', color: 'white'}} to="/enrollment">Enrollment</Link>
+          <h1 style={{ padding: "30px", margin: "12px", position: 'absolute', left: '40%', transform: 'translate(-50%, -50%)'}}>
+          <Link style={{ textDecoration: 'none', color: 'white', fontSize: '20px'}} to="/enrollment">Enrollment</Link>
           </h1>
 
         </div>
