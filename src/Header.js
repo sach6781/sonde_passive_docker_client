@@ -11,7 +11,7 @@ function Header() {
 
   const linkStyle = {
     textDecoration: 'none', // Remove underline from links
-    color: 'white', // Customize link color
+    color: '#b2dfee', // Customize link color
     padding: 20,
     margin: 5
   };
@@ -26,7 +26,7 @@ function Header() {
 
   return (
     <header style={headerStyle}>
-      <nav style={{ fontSize: '15px', border: "1.5px solid #30A7FF", position: 'absolute', width: "90%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
+      <nav style={{ fontSize: '17px', border: "1.5px solid #30A7FF", position: 'absolute', width: "90%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
         <ul style={headerListStyle} className="header-list">
           <li className="left-link">
             <Link to="/" style={linkStyle}>Home</Link>

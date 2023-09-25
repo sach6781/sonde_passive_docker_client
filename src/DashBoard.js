@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import ScoreSlider from "./ScoreSlider";
 import Header from "./Header";
 
-// const Mp3Recorder = new MicRecorder({ bitRate: 128 });
-
 class DashBoard extends React.Component {
 
     constructor(props) {
@@ -153,56 +151,19 @@ class DashBoard extends React.Component {
         }));
     };
 
-    // initiate = () => {
-    //     Mp3Recorder
-    //         .stop()
-    //         .getMp3()
-    //         .then(([buffer, blob]) => {
-    //             const blobURL = URL.createObjectURL(blob)
-    //             this.setState({ blobURL, blobData: blob });
-    //             console.log(this.state.blobData, ' - Initialize data')
-    //         }).catch((e) => console.log(e));
-    // };
-
-    // stopMe = () => {
-    //     console.log("Stop invoked!")
-    //     Mp3Recorder
-    //         .stop()
-    //         .getMp3()
-    //         .then(([buffer, blob]) => {
-    //             const blobURL = URL.createObjectURL(blob)
-    //             this.setState({ blobURL, blobData: blob });
-    //             console.log(this.state.blobData, ' - This is the blob data')
-    //             this.generateVoiceFeatures()
-    //         }).catch((e) => console.log(e));
-    // };
-
-    // start = () => {
-    //     console.log("Start the Enrollment Process - blob data - ", this.state.blobData)
-    //     if (this.state.isBlocked) {
-    //         console.log('Permission Denied');
-    //     } else {
-    //         Mp3Recorder
-    //             .start()
-    //             .then(() => {
-    //                 setTimeout(this.stopMe, 7000)
-    //             }).catch((e) => console.error(e));
-    //     }
-    // };
-
     render() {
         return (<div>
             <Header />
             <ScoreSlider data={this.state.userHistory} />
             <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "5%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
-                {this.state.isRecording ? 'Stop Recording' : 'Start Recording'}
+                {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}
             </button>
             {/* {this.state.blobURL && (
                 <audio controls src={this.state.blobURL} />
             )} */}
             <div style={{ bottom: "0%" }} hidden={!this.state.isRecording}>
                 <h3>
-                    Please keep talking (on any topic)</h3>
+                We are analyzing your vocal biomarker </h3>
                 <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
             </div>
             <div hidden={!this.state.isRecording}>

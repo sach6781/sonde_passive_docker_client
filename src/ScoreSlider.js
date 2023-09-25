@@ -72,7 +72,6 @@ class ScoreSlider extends Component {
     };
   }
 
-
   scoreGridStyle = {
     margin: '2px',
     padding: '10px',
@@ -109,8 +108,6 @@ class ScoreSlider extends Component {
             <div>
 
               <h2 >{name}</h2>
-              {/* <div> */}
-
               {receivedData[name].map((score, index) => (
 
                 <span onClick={() => this.openPopup(score)} key={index} style={{
@@ -135,7 +132,7 @@ class ScoreSlider extends Component {
         <div>
           {this.state.showPopup && (
             <div style={popupStyle}><button style={closeButtonStyle} onClick={this.handleContinueClick}>
-            <h3 style={{color: 'white'}}>
+            <h3 style={{left: '0%', color: 'white'}}>
              CONTINUE
             </h3>
            </button>    

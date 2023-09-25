@@ -74,7 +74,8 @@ class Recorder extends React.Component {
             showEnrollment: false,
             enrollmentProgress: false,
             user_name: null,
-            showPopup: false
+            showPopup: false,
+            enrollCall: false
         };
         this.micRecorder = new MicRecorder({ bitRate: 128 });
 
@@ -92,21 +93,21 @@ class Recorder extends React.Component {
         fetch('https://teams.dev.sondeservices.com/user/' + this.state.user_name + '/docker-enroll', requestOptions)
             .then((response) => {
                 if (response.status === 200) {
-                    this.setState({ showPopup: true,  enrollmentProgress: false })
+                    this.setState({ showPopup: true, enrollmentProgress: false, enrollCall: false })
                     return response.json();
                 } else if (response.status === 400) {
                     return response.json().then((data) => {
                         console.error('Bad Request:', data);
-                        this.setState({ enrollmentProgress: false })
+                        this.setState({ enrollmentProgress: false, enrollCall: false })
                     });
                 } else {
                     console.error('HTTP Error:', response.status);
-                    this.setState({ enrollmentProgress: false })
+                    this.setState({ enrollmentProgress: false, enrollCall: false })
                 }
             })
             .catch((error) => {
                 console.error('Fetch Error:', error);
-                this.setState({ enrollmentProgress: false })
+                this.setState({ enrollmentProgress: false, enrollCall: false })
             });
     }
 
@@ -118,6 +119,7 @@ class Recorder extends React.Component {
             .then(([buffer, blob]) => {
                 const blobURL = URL.createObjectURL(blob)
                 this.setState({ blobURL });
+                this.setState({ currentAction: 'ENROLL', enrollmentProgress: false, enrollCall: true })
                 this.enrollUser(blob)
             }).catch((e) => console.log(e));
     };
@@ -128,7 +130,7 @@ class Recorder extends React.Component {
             console.log('Permission Denied');
         } else {
             this.micRecorder.start().then(() => {
-                setTimeout(this.stopMe, 30000)
+                setTimeout(this.stopMe, 10000)
             }).catch((e) => console.error(e));
         }
     };
@@ -155,12 +157,13 @@ class Recorder extends React.Component {
                     value={this.state.user_name}
                     onChange={this.handleInputChange}
                 />
-
                 <br>
                 </br>
                 <br>
                 </br>
                 <button style={{ backgroundColor: "#00344E", border: "none" }} onClick={this.start}><h3 style={{ color: "#b2dfee" }}> Enroll now </h3> </button>
+                <br>
+                </br>
                 <br>
                 </br>
                 <div hidden={!this.state.enrollmentProgress}> Enrolling - Please give 30 seconds of voice sample (on any topic)
@@ -170,11 +173,17 @@ class Recorder extends React.Component {
                 </div>
                 <br>
                 </br>
+                <div hidden={!this.state.enrollCall}> Submitting enrollment data
+
+                </div>
 
 
-                Click to Enroll - {this.state.user_name}
                 <br>
                 </br>
+                <div hidden={this.state.enrollmentProgress || this.state.enrollCall}>
+                    Click to Enroll - {this.state.user_name}
+                </div>
+
                 <div>
                     {this.state.showPopup && (
                         <div style={popupStyle}>

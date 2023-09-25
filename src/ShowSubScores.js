@@ -31,18 +31,18 @@ function ShowSubScores(props) {
     const agg_score = props.final_score
     return (
     <div style={{width: "100%"}} >
-        <h4 style={{color: "#00B0F0"}}> Aggregated Score</h4>
+        <h3 style={{color: "#00B0F0"}}> Aggregated Score </h3>
         <div style={{border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px"}}>
-            <h4 style={{ textAlign: "left", float: "left", top: "0%"}}>
+            <h4 style={{ textAlign: "left", float: "left", top: "0%", color: "#00B0F0"}}>
                 Score
             </h4>
             <h4 style={{paddingRight:"10px", textAlign: "right", color: getColorForPercentage(vf_score[0]['score'] / 100) }}>
                 {agg_score}
             </h4>
         </div>
-        <h4 style={{color: "#00B0F0"}}> Your Score Components </h4>
+        <h3 style={{color: "#00B0F0"}}> Your Score Components </h3>
         <div style={{ border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px" }}>
-            <h4 style={{ textAlign: "left", float: "left"}}>
+            <h4 style={{ textAlign: "left", float: "left", color: "#00B0F0"}}>
                 {vf_score[0]['name']}
             </h4>
             <h4 style={{ textAlign: "right", color: getColorForPercentage(vf_score[0]['score'] / 100) }}>
@@ -50,7 +50,7 @@ function ShowSubScores(props) {
             </h4>
         </div>
         <div style={{ border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px"  }}>
-            <h4 style={{ textAlign: "left", float: "left"}}>
+            <h4 style={{ textAlign: "left", float: "left", color: "#00B0F0"}}>
                 {vf_score[2]['name']}
             </h4>
             <h4 style={{ textAlign: "right", color: getColorForPercentage(vf_score[2]['score'] / 100) }}>
@@ -58,7 +58,7 @@ function ShowSubScores(props) {
             </h4>
         </div>
         <div style={{ border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px"  }}>
-            <h4 style={{ textAlign: "left", float: "left"}}>
+            <h4 style={{ textAlign: "left", float: "left", color: "#00B0F0"}}>
                 {vf_score[1]['name']}
             </h4>
             <h4 style={{ textAlign: "right", color: getColorForPercentage(vf_score[1]['score'] / 1.0) }}>
@@ -66,7 +66,7 @@ function ShowSubScores(props) {
             </h4>
         </div>
         <div style={{ border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px"  }}>
-            <h4 style={{ textAlign: "left", float: "left"}}>
+            <h4 style={{ textAlign: "left", float: "left", color: "#00B0F0"}}>
                 {vf_score[3]['name']}
             </h4>
             <h4 style={{ textAlign: "right", color: getColorForPercentage(vf_score[3]['score'] / 100) }}>
@@ -74,7 +74,7 @@ function ShowSubScores(props) {
             </h4>
         </div>
         <div style={{ border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px"  }}>
-            <h4 style={{ textAlign: "left", float: "left"}}>
+            <h4 style={{ textAlign: "left", float: "left", color: "#00B0F0"}}>
                 {vf_score[4]['name']}
             </h4>
             <h4 style={{ textAlign: "right", color: getColorForPercentage(vf_score[4]['score'] / 1.0) }}>
@@ -82,7 +82,7 @@ function ShowSubScores(props) {
             </h4>
         </div>
         <div style={{ border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px"  }}>
-            <h4 style={{ textAlign: "left", float: "left"}}>
+            <h4 style={{ textAlign: "left", float: "left", color: "#00B0F0"}}>
                 {vf_score[5]['name']}
             </h4>
             <h4 style={{ textAlign: "right", color: getColorForPercentage(vf_score[5]['score'] / 100) }}>
@@ -90,7 +90,7 @@ function ShowSubScores(props) {
             </h4>
         </div>
         <div style={{ border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px"  }}>
-            <h4 style={{ textAlign: "left", float: "left"}}>
+            <h4 style={{ textAlign: "left", float: "left", color: "#00B0F0"}}>
                 {vf_score[6]['name']}
             </h4>
             <h4 style={{ textAlign: "right", color: getColorForPercentage(vf_score[6]['score'] / 100)}}>
@@ -98,7 +98,7 @@ function ShowSubScores(props) {
             </h4>
         </div>
         <div style={{ border: "0.5px solid black", background: "white", borderRadius: "15px", margin:"2px", paddingLeft:"2px", paddingRight:"2px"  }}>
-            <h4 style={{ textAlign: "left", float: "left"}}>
+            <h4 style={{ textAlign: "left", float: "left", color: "#00B0F0"}}>
                 {vf_score[7]['name']}
             </h4>
             <h4 style={{ textAlign: "right", color: getColorForPercentage(vf_score[7]['score'] / 1.0) }}>
