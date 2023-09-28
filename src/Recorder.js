@@ -130,7 +130,7 @@ class Recorder extends React.Component {
             console.log('Permission Denied');
         } else {
             this.micRecorder.start().then(() => {
-                setTimeout(this.stopMe, 10000)
+                setTimeout(this.stopMe, 30000)
             }).catch((e) => console.error(e));
         }
     };
@@ -143,7 +143,6 @@ class Recorder extends React.Component {
     handleContinueClick = () => {
         this.setState({ showPopup: false })
     }
-
 
     render() {
         return (

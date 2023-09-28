@@ -65,7 +65,7 @@ class DashBoard extends React.Component {
     }
 
     startRecording = () => {
-        this.setState({ isRecording: true });
+        this.setState({ isRecording: true, verified_user: ''});
         console.log('Recording started!')
         this.micRecorder.start().then(() => {
             this.recordTimer = setInterval(() => {
@@ -82,7 +82,7 @@ class DashBoard extends React.Component {
                         });
                     this.micRecorder.start(); // Resume recording
                 }
-            }, 500);
+            }, 700);
         });
     }
 
@@ -109,6 +109,7 @@ class DashBoard extends React.Component {
     }
 
     generateVoiceFeatures = (recorded_data) => {
+        this.setState({unverified: false, verified_user: ''})
         console.log('Invoking server to get the voice feature response for recorded_data - ', recorded_data)
         const formData = new FormData();
         formData.append("webmasterfile", recorded_data);
@@ -167,8 +168,8 @@ class DashBoard extends React.Component {
                 <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
             </div>
             <div hidden={!this.state.isRecording}>
-                {this.state.unverified ? <h1> SEGMENT VERIFIED - UNVERIFIED</h1> : <h1>
-                SEGMENT VERIFIED - {this.state.verified_user} </h1>}
+                {this.state.unverified ? <h3> Segment Verification Status: Un-verified</h3> : <h3>
+                Segment Verification Status: Verified by - {this.state.verified_user} </h3>}
             </div>
 
 

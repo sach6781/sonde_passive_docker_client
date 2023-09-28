@@ -6,13 +6,13 @@ function Header() {
     display: 'flex',
     justifyContent: 'space-between', // Align links horizontally with space in between
     listStyleType: 'none',
-    padding: 5
+    padding: 3
   };
 
   const linkStyle = {
     textDecoration: 'none', // Remove underline from links
     color: '#b2dfee', // Customize link color
-    padding: 20,
+    padding: 10,
     margin: 5
   };
 
