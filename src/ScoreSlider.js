@@ -254,7 +254,7 @@ class ScoreSlider extends Component {
             </button>
               <div style={popupContentStyle}>
                 <h1>
-                  Chunks Analyzed - {this.state.remainingChunks}
+                  Segments Analyzed - {this.state.remainingChunks}
                 </h1>
               </div>
 
