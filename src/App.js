@@ -4,6 +4,7 @@ import DashBoard from './DashBoard';
 import Home from './Home';
 import Enrollment from './Enrollment';
 import Recorder from './Recorder';
+import MentalFitness from './MentalFitness';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/enrollment" element={<Enrollment />} />
         <Route path="/recorder" element={<Recorder />} />
+        <Route path="/mental_fitness" element={<MentalFitness />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
 

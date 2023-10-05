@@ -71,8 +71,8 @@ class Enrollment extends React.Component {
     fetch('https://teams.dev.sondeservices.com/api/user-management/users')
       .then(response => response.json())
       .then(result => {
-        console.log('User - history ', result)
-        this.setState({ enrollment_data: result })
+        const updatedData = result.filter(item => item.identifier !== "Agent1");
+        this.setState({ enrollment_data: updatedData })
       });
   }
 

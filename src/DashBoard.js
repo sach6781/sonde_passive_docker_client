@@ -103,8 +103,9 @@ class DashBoard extends React.Component {
         fetch('https://teams.dev.sondeservices.com/api/user-management/users-history')
             .then(response => response.json())
             .then(result => {
-                console.log('User - history ', result)
-                this.setState({ userHistory: result })
+                const data = result;
+                delete data.Agent1;
+                this.setState({ userHistory: data })
             });
     }
 
@@ -123,7 +124,7 @@ class DashBoard extends React.Component {
         fetch('https://teams.dev.sondeservices.com/docker-voice-features', requestOptions)
             .then(response => response.json())
             .then(result => {
-                console.log("Got the response from server for voice features - ", result)
+                // console.log("Got the response from server for voice features - ", result)
                 if (result.hasOwnProperty('code')) {
                     this.setState({ unverified: true })
                 }
