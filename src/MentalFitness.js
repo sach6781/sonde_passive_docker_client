@@ -14,7 +14,9 @@ class MentalFitness extends React.Component {
             userHistory: [],
             enrollmentStatus: false,
             enrollmentProgress: false,
-            remainingChunks: 0
+            remainingChunks: 0,
+            noActiveVoice: false,
+            statusToShow: ''
         }
         this.micRecorder = new MicRecorder({ bitRate: 128 });
     }
@@ -38,7 +40,7 @@ class MentalFitness extends React.Component {
     }
 
     startRecording = () => {
-        this.setState({ isRecording: true, verified_user: '' });
+        this.setState({ isRecording: true, statusToShow: '' });
         console.log('Recording started!')
         this.micRecorder.start().then(() => {
             this.recordTimer = setInterval(() => {
@@ -89,10 +91,10 @@ class MentalFitness extends React.Component {
             .then(result => {
                 console.log("Got the response from server for voice features - ", result)
                 if (result.hasOwnProperty('code')) {
-                    this.setState({ unverified: true })
+                    this.setState({ statusToShow: 'NO VOICE IN PAST SEGMENT' })
                 }
                 if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
-                    this.setState({ unverified: false, verified_user: result[0].user_identifier })
+                    this.setState({ statusToShow: 'SEGMENT SUBMITTED!', verified_user: result[0].user_identifier })
                     this.setState(prevState => ({
                         remainingChunks: prevState.remainingChunks + result[0].chunks * 3
                     }));
@@ -138,8 +140,19 @@ class MentalFitness extends React.Component {
                     {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}
                 </button>
 
-                <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '45%', bottom: "25%", width: "10%", borderRadius: "15px", padding: "13px", fontSize: '20px' }}>
-                {this.state.remainingChunks} Secs / 30 Secs
+                <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '32%', bottom: "18%", width: "30%", borderRadius: "15px", padding: "13px", fontSize: '20px' }}>
+                    {this.state.remainingChunks} Secs / 30 Secs
+                </div>
+
+                <div style={{ bottom: "0%" }} hidden={!this.state.isRecording}>
+                    <h3>
+                        We are analyzing your vocal biomarker </h3>
+                    <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
+                </div>
+                <div hidden={!this.state.isRecording}>
+                    <h3>
+                        {this.state.statusToShow}
+                    </h3>
                 </div>
 
             </div>)
