@@ -130,7 +130,7 @@ class Recorder extends React.Component {
             console.log('Permission Denied');
         } else {
             this.micRecorder.start().then(() => {
-                setTimeout(this.stopMe, 5000)
+                setTimeout(this.stopMe, 30000)
             }).catch((e) => console.error(e));
         }
     };
