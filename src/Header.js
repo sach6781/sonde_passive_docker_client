@@ -32,7 +32,7 @@ function Header() {
             <Link to="/" style={linkStyle}>Home</Link>
           </li>
           <li className="middle-link">
-            <Link to="/dashboard" style={linkStyle}>DashBoard</Link>
+            <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
           </li>
           <li className="right-link">
             <Link to="/enrollment" style={linkStyle}>Enrollment</Link>

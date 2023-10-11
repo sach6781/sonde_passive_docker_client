@@ -145,7 +145,7 @@ class ScoreSlider extends Component {
 
         <div >
           {isEmpty ? (
-            <>No user history data found in System!</>
+            <>No user score history</>
           ) : (
             <></>
           )}
@@ -253,9 +253,9 @@ class ScoreSlider extends Component {
               </div>
             </button>
               <div style={popupContentStyle}>
-                <h1>
-                  Segments Analyzed - {this.state.remainingChunks}
-                </h1>
+                <h3>
+                  Segments analyzed - {this.state.remainingChunks}
+                </h3>
               </div>
 
             </div>

@@ -104,7 +104,7 @@ class DashBoard extends React.Component {
             .then(response => response.json())
             .then(result => {
                 const data = result;
-                delete data.Agent1;
+                delete data.Guests;
                 this.setState({ userHistory: data })
             });
     }
@@ -129,7 +129,7 @@ class DashBoard extends React.Component {
                     this.setState({ unverified: true })
                 }
                 if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
-                    this.setState({unverified: false, verified_user: result[0].user_identifier})
+                    this.setState({unverified: false, verified_user: result[0].user_identifier + "'s voice"})
                 }
 
                 this.setState({ enrollmentStatus: true, enrollmentProgress: false })
@@ -165,12 +165,12 @@ class DashBoard extends React.Component {
             )} */}
             <div style={{ bottom: "0%" }} hidden={!this.state.isRecording}>
                 <h3>
-                We are analyzing your vocal biomarker </h3>
+                We are analyzing your vocal biomarkers </h3>
                 <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
             </div>
             <div hidden={!this.state.isRecording}>
-                {this.state.unverified ? <h3> Segment Verification Status: Un-verified</h3> : <h3>
-                Segment Verification Status: Verified by - {this.state.verified_user} </h3>}
+                {this.state.unverified ? <h3> Unverified voice</h3> : <h3>
+                {this.state.verified_user} </h3>}
             </div>
 
 

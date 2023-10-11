@@ -130,7 +130,7 @@ class Recorder extends React.Component {
             console.log('Permission Denied');
         } else {
             this.micRecorder.start().then(() => {
-                setTimeout(this.stopMe, 30000)
+                setTimeout(this.stopMe, 5000)
             }).catch((e) => console.error(e));
         }
     };
@@ -165,7 +165,13 @@ class Recorder extends React.Component {
                 </br>
                 <br>
                 </br>
-                <div hidden={!this.state.enrollmentProgress}> Enrolling - Please give 30 seconds of voice sample (on any topic)
+                <div hidden={!this.state.enrollmentProgress}>
+                    <h3>Enrolling</h3>
+                    <h3>Please give 30 seconds of voice sample
+                    </h3>
+                    <h3>
+                        (on any topic)
+                    </h3>
                     <br>
                     </br>
                     <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
@@ -187,9 +193,9 @@ class Recorder extends React.Component {
                     {this.state.showPopup && (
                         <div style={popupStyle}>
                             <div style={popupContentStyle}>
-                                <p>ENROLLMENT COMPLETED SUCCESSFULLY!</p>
+                                <p>Enrollment completed successfully</p>
                                 <button style={closeButtonStyle} onClick={this.handleContinueClick}>
-                                    <Link style={{ textDecoration: 'none', color: 'white' }} to="/enrollment"> CONTINUE </Link>
+                                    <Link style={{ textDecoration: 'none', color: 'white' }} to="/enrollment"> Continue </Link>
                                 </button>
                             </div>
                         </div>

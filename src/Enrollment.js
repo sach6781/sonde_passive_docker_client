@@ -71,7 +71,7 @@ class Enrollment extends React.Component {
     fetch('https://teams.dev.sondeservices.com/api/user-management/users')
       .then(response => response.json())
       .then(result => {
-        const updatedData = result.filter(item => item.identifier !== "Agent1");
+        const updatedData = result.filter(item => item.identifier !== "Guests");
         this.setState({ enrollment_data: updatedData })
       });
   }
@@ -122,7 +122,7 @@ class Enrollment extends React.Component {
       <div>
         <Header />
         <h4>
-          User Enrollments
+          Enrolled Users
         </h4>
         <div style={{ bottom: '50%' }}>
 
@@ -132,10 +132,10 @@ class Enrollment extends React.Component {
             <thead>
               <tr>
                 {isEmpty ? (
-                  <p>No User Enrollment Found in System!</p>
+                  <p>No user enrolled</p>
                 ) : (
                   <>
-                    <th style={cellStyle}>Identifier</th>
+                    <th style={cellStyle}>Name</th>
                     <th style={cellStyle} >Status</th>
                     <th style={cellStyle}>
                       Action
@@ -148,10 +148,10 @@ class Enrollment extends React.Component {
               {this.state.enrollment_data.map((item, index) => (
                 <tr key={index}>
                   <td style={cellStyle}>{item.identifier}</td>
-                  <td style={cellStyle}>ENROLLED</td>
+                  <td style={cellStyle}>Enrolled</td>
                   <td style={cellStyle}>
                     <button onClick={() => this.deleteUser(item.identifier)}>
-                      DELETE
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -166,7 +166,7 @@ class Enrollment extends React.Component {
         </br>
         <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', bottom: '0%', left: '50%', transform: 'translate(-50%, -50%)', width: "85%", height: "8%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
           <h1 style={{ margin: "3px", position: 'absolute', left: '40%', transform: 'translate(-50%, -50%)' }}>
-            <Link style={{ textDecoration: 'none', color: 'white', fontSize: '20px' }} to="/recorder"> &nbsp;&nbsp; Enroll New User</Link>
+            <Link style={{ textAlign: 'center', textDecoration: 'none', color: 'white', fontSize: '18px' }} to="/recorder"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enroll new user</Link>
           </h1>
 
         </div>
@@ -174,9 +174,9 @@ class Enrollment extends React.Component {
           {this.state.showPopup && (
             <div style={popupStyle}>
               <div style={popupContentStyle}>
-                <p>USER DELETED SUCCESSFULLY!</p>
+                <p>User deleted successfully!</p>
                 <button style={closeButtonStyle} onClick={this.handleContinueClick}>
-                  <Link style={{ textDecoration: 'none', color: 'white' }} to="/enrollment"> CONTINUE </Link>
+                  <Link style={{ textDecoration: 'none', color: 'white' }} to="/enrollment"> Continue </Link>
                 </button>
               </div>
             </div>

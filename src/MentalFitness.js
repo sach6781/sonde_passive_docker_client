@@ -14,7 +14,7 @@ class MentalFitness extends React.Component {
             userHistory: [],
             enrollmentStatus: false,
             enrollmentProgress: false,
-            remainingChunks: 0,
+            remainingChunks: '',
             noActiveVoice: false,
             statusToShow: ''
         }
@@ -31,7 +31,7 @@ class MentalFitness extends React.Component {
     }
 
     getRemainingChunks = (name) => {
-        fetch('https://teams.dev.sondeservices.com/api/user-management/user/Agent1/chunks')
+        fetch('https://teams.dev.sondeservices.com/api/user-management/user/Guests/chunks')
             .then(response => response.json())
             .then(result => {
                 this.setState({ remainingChunks: result.chunks * 3 })
@@ -86,15 +86,15 @@ class MentalFitness extends React.Component {
         };
 
 
-        fetch('https://teams.dev.sondeservices.com/docker-voice-features?identifier=Agent1', requestOptions)
+        fetch('https://teams.dev.sondeservices.com/docker-voice-features?identifier=Guests', requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log("Got the response from server for voice features - ", result)
                 if (result.hasOwnProperty('code')) {
-                    this.setState({ statusToShow: 'NO VOICE IN PAST SEGMENT' })
+                    this.setState({ statusToShow: 'Silence detected' })
                 }
                 if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
-                    this.setState({ statusToShow: 'SEGMENT SUBMITTED!', verified_user: result[0].user_identifier })
+                    this.setState({ statusToShow: 'Voice detected', verified_user: result[0].user_identifier })
                     this.setState(prevState => ({
                         remainingChunks: prevState.remainingChunks + result[0].chunks * 3
                     }));
@@ -110,7 +110,7 @@ class MentalFitness extends React.Component {
     }
 
     fetchAgentHistory = () => {
-        fetch('https://teams.dev.sondeservices.com/api/user-management/user/Agent1/scoring-history')
+        fetch('https://teams.dev.sondeservices.com/api/user-management/user/Guests/scoring-history')
             .then(response => response.json())
             .then(result => {
                 const transformedData = {};
@@ -133,7 +133,7 @@ class MentalFitness extends React.Component {
             <div>
                 <Header />
                 <h1>
-                    Mental Fitness App
+                    Mental Fitness
                 </h1>
                 <ScoreSlider data={this.state.userHistory} />
                 <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "5%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
@@ -141,12 +141,12 @@ class MentalFitness extends React.Component {
                 </button>
 
                 <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '32%', bottom: "18%", width: "30%", borderRadius: "15px", padding: "13px", fontSize: '20px' }}>
-                    {this.state.remainingChunks} Secs / 30 Secs
+                    {this.state.remainingChunks} / 30 sec.
                 </div>
 
                 <div style={{ bottom: "0%" }} hidden={!this.state.isRecording}>
                     <h3>
-                        We are analyzing your vocal biomarker </h3>
+                        Score history </h3>
                     <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
                 </div>
                 <div hidden={!this.state.isRecording}>

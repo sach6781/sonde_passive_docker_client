@@ -17,7 +17,9 @@ function Home() {
 
   return (
     <div>
-      <h1>Welcome to the Sonde Passive App!</h1>
+      <h2>Welcome to Sonde </h2>
+      <h2>Mental Fitness, Passive </h2>
+      <h2>Demo </h2>
 
       <div >
         <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: "30%", height: "10%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
@@ -39,7 +41,7 @@ function Home() {
 
         <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', top: '90%', left: '50%', transform: 'translate(-50%, -50%)', width: "30%", height: "10%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee" }}>
           <h1 style={{ padding: "20px", margin: "15px", position: 'absolute', left: '40%', transform: 'translate(-50%, -40%)'}}>
-          <Link style={{ textDecoration: 'none', color: 'white', fontSize: '20px'}} to="/mental_fitness">Mental Fitness</Link>
+          <Link style={{ textDecoration: 'none', color: 'white', fontSize: '20px'}} to="/mental_fitness">Guest Mode</Link>
           </h1>
 
         </div>
