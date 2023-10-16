@@ -122,7 +122,7 @@ class Enrollment extends React.Component {
       <div>
         <Header />
         <h4>
-          Enrolled Users
+          Enrolled users
         </h4>
         <div style={{ bottom: '50%' }}>
 
@@ -132,7 +132,7 @@ class Enrollment extends React.Component {
             <thead>
               <tr>
                 {isEmpty ? (
-                  <p>No user enrolled</p>
+                  <p>No users enrolled</p>
                 ) : (
                   <>
                     <th style={cellStyle}>Name</th>

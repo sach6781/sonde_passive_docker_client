@@ -5,6 +5,7 @@ import Home from './Home';
 import Enrollment from './Enrollment';
 import Recorder from './Recorder';
 import MentalFitness from './MentalFitness';
+import MyComponent from './MyComponent';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/enrollment" element={<Enrollment />} />
         <Route path="/recorder" element={<Recorder />} />
         <Route path="/mental_fitness" element={<MentalFitness />} />
+        <Route path="/test" element={<MyComponent />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
 

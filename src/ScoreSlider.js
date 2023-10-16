@@ -107,10 +107,8 @@ class ScoreSlider extends Component {
     fetch('https://teams.dev.sondeservices.com/api/user-management/user/' + name + '/chunks')
       .then(response => response.json())
       .then(result => {
-        // console.log('Chunks for - ', name, 'are - ', result.chunks)
         this.setState({ remainingChunks: result.chunks, showPopUpChunks: true })
       });
-    console.log('Chunks Maps - ', this.state.chunksMap)
   }
 
   getSubScores = (score_id, score, timestamp) => {
@@ -124,6 +122,7 @@ class ScoreSlider extends Component {
 
   render() {
     const test_data = this.props.data;
+    const chunk_map = this.props.name_chunks_map;
     const isEmpty = Object.keys(test_data).length === 0;
     const crossStyle = {
       width: '25px',
@@ -152,7 +151,11 @@ class ScoreSlider extends Component {
 
           {Object.keys(test_data).map((name) => (
             <div key={name}>
-              <h2><button style={{'background-color': 'transparent', 'border': 'none', cursor: 'pointer', fontSize: '18px'}} onClick={() => this.getRemainingChunks(name)}>{name} </button></h2>
+              {/* <h2><button style={{ 'background-color': 'transparent', 'border': 'none', cursor: 'pointer', fontSize: '18px' }}
+                onClick={() => this.getRemainingChunks(name)}>{name} {chunk_map[name]} </button></h2> */}
+              <h4>
+              {name} ( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0} / 30 sec.) 
+              </h4>
               {test_data[name].map((data, index) => (
                 <span
                   onClick={() => this.openPopup(data.id, data.calculated_at, data.score)} // Access the score property

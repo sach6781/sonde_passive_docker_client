@@ -9,6 +9,8 @@ class DashBoard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            names: [],
+            chunksMap: {},
             userHistory: {},
             historyOn: false,
             showRedError: false,
@@ -58,14 +60,49 @@ class DashBoard extends React.Component {
 
     componentDidMount() {
         this.getUserScoreHistory()
-        this.intervalId = setInterval(() => {
-            console.log('This function is invoked every 5 seconds.');
-            this.getUserScoreHistory()
-        }, 10000);
+        setTimeout(() => {
+            this.fetchData();
+        }, 1000);
+        // this.intervalId = setInterval(() => {
+        //     console.log('This function is invoked every 5 seconds.');
+        //     this.getUserScoreHistory()
+        // }, 10000);
+
+        fetch('https://teams.dev.sondeservices.com/api/user-management/users-history')
+            .then((response) => response.json())
+            .then((data) => {
+                // delete data.Guests;
+                // this.setState({ userHistory: data })
+                this.setState({ names: Object.keys(data) });
+            })
+            .catch((error) => console.error('API request error: ', error));
+
+        this.intervalId = setInterval(this.fetchData, 30000);
     }
 
+    fetchData = () => {
+        console.log('called')
+        const promises = this.state.names.map((name) =>
+            fetch('https://teams.dev.sondeservices.com/api/user-management/user/' + name + '/chunks')
+                .then((response) => response.json())
+                .then((data) => ({ name, chunks: data.chunks * 3 }))
+        );
+
+        Promise.all(promises)
+            .then((results) => {
+                const newChunksMap = {};
+                results.forEach(({ name, chunks }) => {
+                    newChunksMap[name] = chunks;
+                });
+                this.setState({ chunksMap: newChunksMap });
+                console.log(newChunksMap)
+            })
+            .catch((error) => console.error('Promise.all error: ', error));
+    };
+
+
     startRecording = () => {
-        this.setState({ isRecording: true, verified_user: ''});
+        this.setState({ isRecording: true, verified_user: '' });
         console.log('Recording started!')
         this.micRecorder.start().then(() => {
             this.recordTimer = setInterval(() => {
@@ -105,12 +142,28 @@ class DashBoard extends React.Component {
             .then(result => {
                 const data = result;
                 delete data.Guests;
-                this.setState({ userHistory: data })
+
+                const all_users = Object.keys(data)
+
+                fetch('https://teams.dev.sondeservices.com/api/user-management/users')
+                    .then(response => response.json())
+                    .then(result => {
+                        const updatedData = result.filter(item => item.identifier !== "Guests");
+                        const jsonIdentifiers = updatedData.map(item => item.identifier);
+                        // const jsonIdentifiers = ['a', 'b', 'v']
+                        const missingIdentifiers = jsonIdentifiers.filter(id => !all_users.includes(id));
+                        
+                        missingIdentifiers.forEach(item => {
+                            data[item] = [];
+                          });
+
+                        this.setState({ userHistory: data })
+                    });
             });
     }
 
     generateVoiceFeatures = (recorded_data) => {
-        this.setState({unverified: false, verified_user: ''})
+        this.setState({ unverified: false, verified_user: '' })
         console.log('Invoking server to get the voice feature response for recorded_data - ', recorded_data)
         const formData = new FormData();
         formData.append("webmasterfile", recorded_data);
@@ -129,7 +182,7 @@ class DashBoard extends React.Component {
                     this.setState({ unverified: true })
                 }
                 if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
-                    this.setState({unverified: false, verified_user: result[0].user_identifier + "'s voice"})
+                    this.setState({ unverified: false, verified_user: result[0].user_identifier + "'s voice" })
                 }
 
                 this.setState({ enrollmentStatus: true, enrollmentProgress: false })
@@ -156,7 +209,7 @@ class DashBoard extends React.Component {
     render() {
         return (<div>
             <Header />
-            <ScoreSlider data={this.state.userHistory} />
+            <ScoreSlider data={this.state.userHistory} name_chunks_map={this.state.chunksMap} />
             <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "5%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
                 {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}
             </button>
@@ -165,12 +218,12 @@ class DashBoard extends React.Component {
             )} */}
             <div style={{ bottom: "0%" }} hidden={!this.state.isRecording}>
                 <h3>
-                We are analyzing your vocal biomarkers </h3>
+                    We are analyzing your vocal biomarkers </h3>
                 <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
             </div>
             <div hidden={!this.state.isRecording}>
                 {this.state.unverified ? <h3> Unverified voice</h3> : <h3>
-                {this.state.verified_user} </h3>}
+                    {this.state.verified_user} </h3>}
             </div>
 
 

@@ -16,7 +16,8 @@ class MentalFitness extends React.Component {
             enrollmentProgress: false,
             remainingChunks: '',
             noActiveVoice: false,
-            statusToShow: ''
+            statusToShow: '',
+            chunksMap: {'Guests': 10}
         }
         this.micRecorder = new MicRecorder({ bitRate: 128 });
     }
@@ -135,7 +136,7 @@ class MentalFitness extends React.Component {
                 <h1>
                     Mental Fitness
                 </h1>
-                <ScoreSlider data={this.state.userHistory} />
+                <ScoreSlider data={this.state.userHistory}  name_chunks_map={this.state.remainingChunks}/>
                 <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "5%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
                     {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}
                 </button>
@@ -148,6 +149,9 @@ class MentalFitness extends React.Component {
                     <h3>
                         Score history </h3>
                     <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
+                    <h5>
+                        30 sec. voice sample needed
+                    </h5>
                 </div>
                 <div hidden={!this.state.isRecording}>
                     <h3>
