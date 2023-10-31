@@ -24,10 +24,13 @@ class MentalFitness extends React.Component {
 
     componentDidMount() {
         this.fetchAgentHistory()
-        this.getRemainingChunks()
+        setTimeout(() => {
+            this.getRemainingChunks();
+        }, 1000);
         this.intervalId = setInterval(() => {
             console.log('This function is invoked every 5 seconds.');
             this.fetchAgentHistory()
+            this.getRemainingChunks()
         }, 10000);
     }
 

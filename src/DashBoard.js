@@ -63,25 +63,23 @@ class DashBoard extends React.Component {
         setTimeout(() => {
             this.fetchData();
         }, 1000);
-        // this.intervalId = setInterval(() => {
-        //     console.log('This function is invoked every 5 seconds.');
-        //     this.getUserScoreHistory()
-        // }, 10000);
+        this.intervalId = setInterval(() => {
+            console.log('This function is invoked every 5 seconds.');
+            this.getUserScoreHistory()
+        }, 10000);
 
-        fetch('https://teams.dev.sondeservices.com/api/user-management/users-history')
-            .then((response) => response.json())
-            .then((data) => {
-                // delete data.Guests;
-                // this.setState({ userHistory: data })
-                this.setState({ names: Object.keys(data) });
-            })
-            .catch((error) => console.error('API request error: ', error));
+        // fetch('https://teams.dev.sondeservices.com/api/user-management/users-history')
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         delete data.Guests;
+        //     })
+        //     .catch((error) => console.error('API request error: ', error));
 
-        this.intervalId = setInterval(this.fetchData, 30000);
+        this.intervalId = setInterval(this.fetchData, 3000);
     }
 
     fetchData = () => {
-        console.log('called')
+        console.log('Called API to get chunks for names - ', this.state.names)
         const promises = this.state.names.map((name) =>
             fetch('https://teams.dev.sondeservices.com/api/user-management/user/' + name + '/chunks')
                 .then((response) => response.json())
@@ -143,20 +141,20 @@ class DashBoard extends React.Component {
                 const data = result;
                 delete data.Guests;
 
-                const all_users = Object.keys(data)
-
+                const users_with_history = Object.keys(data)
+                
                 fetch('https://teams.dev.sondeservices.com/api/user-management/users')
                     .then(response => response.json())
                     .then(result => {
                         const updatedData = result.filter(item => item.identifier !== "Guests");
-                        const jsonIdentifiers = updatedData.map(item => item.identifier);
-                        // const jsonIdentifiers = ['a', 'b', 'v']
-                        const missingIdentifiers = jsonIdentifiers.filter(id => !all_users.includes(id));
+                        const all_enrolled_users = updatedData.map(item => item.identifier);
+                        const missingIdentifiers = all_enrolled_users.filter(id => !users_with_history.includes(id));
                         
                         missingIdentifiers.forEach(item => {
                             data[item] = [];
                           });
-
+                        this.setState({names: all_enrolled_users})
+                        console.log('Setting the users score - ', data)
                         this.setState({ userHistory: data })
                     });
             });

@@ -154,7 +154,7 @@ class ScoreSlider extends Component {
               {/* <h2><button style={{ 'background-color': 'transparent', 'border': 'none', cursor: 'pointer', fontSize: '18px' }}
                 onClick={() => this.getRemainingChunks(name)}>{name} {chunk_map[name]} </button></h2> */}
               <h4>
-              {name} ( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0} / 30 sec.) 
+              {name} {chunk_map === undefined ? <h>( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0} / 30 sec.) </h> : ''}
               </h4>
               {test_data[name].map((data, index) => (
                 <span
