@@ -137,7 +137,7 @@ class ScoreSlider extends Component {
           style={{
             border: '1px solid #000',
             width: '13px',
-            height: '2px',
+            height: '1px',
             display: 'inline-block',
             padding: '4px',
             transition: 'background-color 0.5s, transform 0.3s',
@@ -185,19 +185,19 @@ class ScoreSlider extends Component {
 
               {/* <h2><button style={{ 'background-color': 'transparent', 'border': 'none', cursor: 'pointer', fontSize: '18px' }}
                 onClick={() => this.getRemainingChunks(name)}>{name} {chunk_map[name]} </button></h2> */}
-              <>
+              <h6 style={{ margin: 0, padding: '5px 0'}}>
               
               {name} 
-              <br></br>
-              {/* Commenting this. */}
-              {/* {chunk_map !== 10000 ? <h>( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0 } / 30 sec.) </h> : ''} */}
-              {/* Commenting till here  */}
               
+              {/* Commenting this. */}
+              {chunk_map !== 10000 ? <h>( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0 } / 30 sec.) </h> : ''}
+              {/* Commenting till here  */}
+              <br></br>
               
               {this.renderBoxes(chunk_map[name] / 3)}
               {/* {name} ( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0} / 30 sec.)  */}
               <br></br>
-              </>
+              </h6>
 
               {test_data[name].map((data, index) => (
                 <span
@@ -221,6 +221,7 @@ class ScoreSlider extends Component {
                 >
                   {data.score}
                 </span>
+
 
                 // <span
                 //   // Access the score property
@@ -262,7 +263,9 @@ class ScoreSlider extends Component {
                   }}
                 > A
                 </span>
+                
               ))}
+              
 
 
 
@@ -273,6 +276,7 @@ class ScoreSlider extends Component {
           ))}
 
         </div>
+        
 
         <div>
           {/* <button style={closeButtonStyle} onClick={this.handleContinueClick}>
