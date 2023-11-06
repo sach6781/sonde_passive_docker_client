@@ -5,6 +5,8 @@ import Header from './Header';
 
 class MentalFitness extends React.Component {
 
+
+
     constructor(props) {
         super(props);
         this.state = {
@@ -17,12 +19,27 @@ class MentalFitness extends React.Component {
             remainingChunks: '',
             noActiveVoice: false,
             statusToShow: '',
-            chunksMap: {'Guests': 10}
+            chunksMap: { 'Guests': 10 },
+            totalBoxes: 100,
+            users: [
+                { id: 1, color: 'red' },
+                { id: 2, color: 'blue' },
+                { id: 3, color: 'green' },
+                { id: 4, color: 'yellow' }
+                // Add more users with different colors as needed
+            ],
+            colorMap: {
+                Guests: 'green',
+                Sachin: 'yellow'
+            },
+            boxes: Array(100).fill('gray')
         }
         this.micRecorder = new MicRecorder({ bitRate: 128 });
     }
 
+
     componentDidMount() {
+        // this.interval = setInterval(this.updateUserAction, 3000);
         this.fetchAgentHistory()
         setTimeout(() => {
             this.getRemainingChunks();
@@ -58,6 +75,7 @@ class MentalFitness extends React.Component {
                             const blobURL = URL.createObjectURL(blob);
                             this.setState({ blobURL });
                             this.generateVoiceFeatures(blob);
+                            
                         });
                     this.micRecorder.start(); // Resume recording
                 }
@@ -96,8 +114,14 @@ class MentalFitness extends React.Component {
                 console.log("Got the response from server for voice features - ", result)
                 if (result.hasOwnProperty('code')) {
                     this.setState({ statusToShow: 'Silence detected' })
+                    this.updateUserAction('red');
                 }
                 if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
+                    const user = result[0].user_identifier
+                    console.log('Identified User - ', user)
+                    const { colorMap } = this.state;
+                    const colorForGuests = colorMap[user];
+                    this.updateUserAction(colorForGuests);
                     this.setState({ statusToShow: 'Voice detected', verified_user: result[0].user_identifier })
                     this.setState(prevState => ({
                         remainingChunks: prevState.remainingChunks + result[0].chunks * 3
@@ -132,14 +156,58 @@ class MentalFitness extends React.Component {
             });
     }
 
+    renderBoxes = (chunk_map) => {
+        const totalBoxes = 100;
+        const filledRed = chunk_map;
+        const remainingGray = totalBoxes - filledRed;
+
+        const boxes = [];
+
+        for (let i = 0; i < totalBoxes; i++) {
+            const color = i < filledRed ? 'green' : 'gray';
+
+            boxes.push(
+                <span
+                    key={i}
+                    style={{
+                        border: '1px solid #000',
+                        width: '13px',
+                        height: '2px',
+                        display: 'inline-block',
+                        padding: '4px',
+                        transition: 'background-color 0.5s, transform 0.3s',
+                        backgroundColor: color
+                    }}
+                >
+                </span>
+            );
+        }
+
+        return boxes;
+    };
+
+    updateUserAction = (color_resp) => {
+        const { users, boxes } = this.state;
+        const color = color_resp
+
+        const updatedBoxes = [...boxes];
+        const nextIndex = updatedBoxes.findIndex(box => box === 'gray');
+        if (nextIndex !== -1) {
+            updatedBoxes[nextIndex] = color;
+        }
+
+        this.setState({ boxes: updatedBoxes });
+    };
+
     render() {
+        const { boxes } = this.state;
         return (
             <div>
                 <Header />
                 <h1>
                     Mental Fitness
                 </h1>
-                <ScoreSlider data={this.state.userHistory}  name_chunks_map={10000}/>
+                <ScoreSlider data={this.state.userHistory} name_chunks_map={10000} />
                 <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "5%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
                     {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}
                 </button>
@@ -160,6 +228,30 @@ class MentalFitness extends React.Component {
                     <h3>
                         {this.state.statusToShow}
                     </h3>
+                </div>
+
+                {/* <div style={{ position: 'fixed', bottom: '100', width: '100%', padding: '20px' }}>
+                    <div style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
+                        {this.renderBoxes(10)}
+
+                    </div>
+                </div> */}
+
+                <div style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
+                    {boxes.map((color, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                border: '1px solid #000',
+                                width: '13px',
+                                height: '2px',
+                                display: 'inline-block',
+                                padding: '4px',
+                                transition: 'background-color 0.5s, transform 0.3s',
+                                backgroundColor: color,
+                            }}
+                        />
+                    ))}
                 </div>
 
             </div>)

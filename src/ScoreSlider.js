@@ -120,6 +120,37 @@ class ScoreSlider extends Component {
       });
   }
 
+
+  renderBoxes = (chunk_map) => {
+    const totalBoxes = 10;
+    const filledRed = chunk_map;
+    const remainingGray = totalBoxes - filledRed;
+
+    const boxes = [];
+    
+    for (let i = 0; i < totalBoxes; i++) {
+      const color = i < filledRed ? 'green' : 'gray';
+      
+      boxes.push(
+        <span
+          key={i}
+          style={{
+            border: '1px solid #000',
+            width: '13px',
+            height: '2px',
+            display: 'inline-block',
+            padding: '4px',
+            transition: 'background-color 0.5s, transform 0.3s',
+            backgroundColor: color
+          }}
+        >
+        </span>
+      );
+    }
+    
+    return boxes;
+  };
+
   render() {
     const test_data = this.props.data;
     const chunk_map = this.props.name_chunks_map;
@@ -145,38 +176,50 @@ class ScoreSlider extends Component {
         <div >
           {isEmpty ? (
             <>No user score history</>
-          ) : (
-            <></>
-          )}
+          ) : <></>}
 
           {Object.keys(test_data).map((name) => (
+            
             <div key={name}>
+              
+
               {/* <h2><button style={{ 'background-color': 'transparent', 'border': 'none', cursor: 'pointer', fontSize: '18px' }}
                 onClick={() => this.getRemainingChunks(name)}>{name} {chunk_map[name]} </button></h2> */}
-              <h4>
-              {name} {chunk_map !== 10000 ? <h>( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0 } / 30 sec.) </h> : ''}
+              <>
+              
+              {name} 
+              <br></br>
+              {/* Commenting this. */}
+              {/* {chunk_map !== 10000 ? <h>( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0 } / 30 sec.) </h> : ''} */}
+              {/* Commenting till here  */}
+              
+              
+              {this.renderBoxes(chunk_map[name] / 3)}
               {/* {name} ( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0} / 30 sec.)  */}
-              </h4>
+              <br></br>
+              </>
+
               {test_data[name].map((data, index) => (
                 <span
                   onClick={() => this.openPopup(data.id, data.calculated_at, data.score)} // Access the score property
                   key={index}
                   style={{
-                    borderRadius: '10px',
-                    width: '1px',
-                    height: '25px',
+                    borderRadius: '6px',
+                    width: '9px',
+                    height: '9px',
                     border: '1px solid #000',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    fontSize: '15px',
+                    fontSize: '7px',
                     fontWeight: 'bold',
                     padding: '5px',
                     margin: '2px',
+                    display: 'inline-block',
                     color: getColorForPercentage(data.score), // Access the score property
                     cursor: 'pointer',
                   }}
                 >
-                  {data.score} {/* Display the score */}
+                  {data.score}
                 </span>
 
                 // <span
@@ -199,27 +242,33 @@ class ScoreSlider extends Component {
                 // >
                 //   {data.score} {/* Display the score */}
                 // </span>
+              
+              
+              
               ))}
+   
+              
               {Array.from({ length: 10 - test_data[name].length }, (_, index) => (
                 <span
                   key={index}
                   style={{
-                    borderRadius: '10px',
-                    width: '10px',
-                    height: '25px',
+                    borderRadius: '6px',
                     border: '1px solid #000',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    fontSize: '15px',
-                    fontWeight: 'bold',
-                    padding: '5px',
+                    padding: '6px',
                     margin: '2px',
-                    color: 'white',
+                    fontSize: '5.5px',
+                    color: 'white', // Access the score property
+                    
                   }}
-                >
-                  {'....'}
+                > A
                 </span>
               ))}
+
+
+
+
+              
+                           
             </div>
           ))}
 
