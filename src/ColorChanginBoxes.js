@@ -41,9 +41,8 @@ class ColorChangingBoxes extends Component {
                 <div
                     className="box-container"
                     style={{
-                        paddingTop: '50%',
                         width: '50%',
-                        height: '120px',
+                        height: '10px',
                         overflowX: 'auto',
                     }}
                     ref={this.boxContainerRef}

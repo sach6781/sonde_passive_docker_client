@@ -4,9 +4,6 @@ import ScoreSlider from './ScoreSlider';
 import Header from './Header';
 
 class MentalFitness extends React.Component {
-
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -20,22 +17,6 @@ class MentalFitness extends React.Component {
             noActiveVoice: false,
             statusToShow: '',
             chunksMap: { 'Guests': 10 },
-            totalBoxes: 100,
-            users: [
-                { id: 1, color: 'red' },
-                { id: 2, color: 'blue' },
-                { id: 3, color: 'green' },
-                { id: 4, color: 'yellow' }
-                // Add more users with different colors as needed
-            ],
-            colorMap: {
-                Guests: 'green',
-                Sachin: 'yellow'
-            },
-            boxes: Array(100).fill('gray'),
-            movingBoxIndex: 0,
-            colors: Array(100).fill('white'), // Filling 100 boxes with gray color
-            // updateInterval: 500, // Interval for color updates in milliseconds
             intervalId: null,
         }
         this.micRecorder = new MicRecorder({ bitRate: 128 });

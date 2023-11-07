@@ -129,17 +129,19 @@ class ScoreSlider extends Component {
     const boxes = [];
     
     for (let i = 0; i < totalBoxes; i++) {
-      const color = i < filledRed ? 'green' : 'gray';
+      const color = i < filledRed ? 'blue' : 'gray';
       
       boxes.push(
         <span
           key={i}
           style={{
+            borderRadius: '3px',
             border: '1px solid #000',
-            width: '13px',
-            height: '1px',
+            width: '6px',
+            height: '0.0px',
             display: 'inline-block',
             padding: '4px',
+            margin: '1px',
             transition: 'background-color 0.5s, transform 0.3s',
             backgroundColor: color
           }}
