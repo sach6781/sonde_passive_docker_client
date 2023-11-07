@@ -3,6 +3,8 @@ import MicRecorder from 'mic-recorder-to-mp3';
 import { Link, useNavigate } from 'react-router-dom';
 import ScoreSlider from "./ScoreSlider";
 import Header from "./Header";
+import ColorChangingBoxes from "./ColorChanginBoxes";
+import ColorManager from "./ColorManager";
 
 class DashBoard extends React.Component {
 
@@ -50,7 +52,10 @@ class DashBoard extends React.Component {
             blobURL: '',
             timer: 0, // Elapsed recording time in seconds
             verified_user: '',
-            unverified: false
+            unverified: false,
+            currentColor: 'gray', 
+            colors: [],
+            user_color_map: {}
         };
         this.timer = null;
         this.micRecorder = new MicRecorder({ bitRate: 128 });
@@ -59,7 +64,8 @@ class DashBoard extends React.Component {
     }
 
     componentDidMount() {
-        this.getUserScoreHistory()
+        this.getUserScoreHistory1()
+        // this.getUserScoreHistory()
         setTimeout(() => {
             this.fetchData();
         }, 1000);
@@ -67,16 +73,19 @@ class DashBoard extends React.Component {
             console.log('This function is invoked every 5 seconds.');
             this.getUserScoreHistory()
         }, 10000);
-
-        // fetch('https://teams.dev.sondeservices.com/api/user-management/users-history')
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         delete data.Guests;
-        //     })
-        //     .catch((error) => console.error('API request error: ', error));
-
         this.intervalId = setInterval(this.fetchData, 3000);
     }
+
+    updateColors = () => {
+        // const newColors = ['#FF5733', '#33FF57', '#3366FF', '#FF33EA', '#33FFFF', '#F8FF33'];
+        console.log('Updating to green!')
+        const newColors = ['green', 'red', 'blue'];
+        this.setState({ colors: newColors });
+    };
+
+    changeColor = () => {
+        this.refs.child.addBox('green');
+    };
 
     fetchData = () => {
         console.log('Called API to get chunks for names - ', this.state.names)
@@ -153,7 +162,41 @@ class DashBoard extends React.Component {
                         missingIdentifiers.forEach(item => {
                             data[item] = [];
                         });
-                        this.setState({ names: all_enrolled_users })
+
+                        this.setState({ names: all_enrolled_users})
+                        console.log('Setting the users score - ', data)
+                        this.setState({ userHistory: data })
+                    });
+            });
+    }
+    getUserScoreHistory1 = () => {
+        fetch('https://teams.dev.sondeservices.com/api/user-management/users-history')
+            .then(response => response.json())
+            .then(result => {
+                const data = result;
+                delete data.Guests;
+
+                const users_with_history = Object.keys(data)
+
+                fetch('https://teams.dev.sondeservices.com/api/user-management/users')
+                    .then(response => response.json())
+                    .then(result => {
+                        const updatedData = result.filter(item => item.identifier !== "Guests");
+                        const all_enrolled_users = updatedData.map(item => item.identifier);
+                        const missingIdentifiers = all_enrolled_users.filter(id => !users_with_history.includes(id));
+
+                        missingIdentifiers.forEach(item => {
+                            data[item] = [];
+                        });
+
+                        let userColors = {};
+                        all_enrolled_users.forEach(user => {
+                            userColors[user] = '#' + Math.floor(Math.random()*16777215).toString(16); // Assign a random color to each user
+                        });
+
+                        console.log('Color map is - ', userColors)
+
+                        this.setState({ names: all_enrolled_users, user_color_map: userColors })
                         console.log('Setting the users score - ', data)
                         this.setState({ userHistory: data })
                     });
@@ -178,9 +221,11 @@ class DashBoard extends React.Component {
                 // console.log("Got the response from server for voice features - ", result)
                 if (result.hasOwnProperty('code')) {
                     this.setState({ unverified: true })
+                    this.refs.child.addBox('gray');
                 }
                 if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
                     this.setState({ unverified: false, verified_user: result[0].user_identifier + "'s voice" })
+                    this.refs.child.addBox(this.state.user_color_map[result[0].user_identifier]);
                 }
 
                 this.setState({ enrollmentStatus: true, enrollmentProgress: false })
@@ -207,6 +252,9 @@ class DashBoard extends React.Component {
     render() {
         return (<div style={{ height: '400px', overflowY: 'auto' }}>
             <Header />
+            <div>
+            <ColorChangingBoxes ref="child" />
+            </div>
             <ScoreSlider data={this.state.userHistory} name_chunks_map={this.state.chunksMap} />
             <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "0%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
                 {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}

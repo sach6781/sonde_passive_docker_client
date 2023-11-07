@@ -7,6 +7,7 @@ class ColorChangingBoxes extends Component {
             boxes: [],
         };
         this.boxContainerRef = React.createRef();
+        console.log('Here inside color changing boxes')
     }
 
     addBox = (color) => {
@@ -16,7 +17,7 @@ class ColorChangingBoxes extends Component {
                 style={{
                     border: '1px solid #000',
                     width: '13px',
-                    height: '1px',
+                    height: '10px',
                     display: 'inline-block',
                     padding: '4px',
                     transition: 'background-color 0.5s, transform 0.3s',
@@ -40,6 +41,7 @@ class ColorChangingBoxes extends Component {
                 <div
                     className="box-container"
                     style={{
+                        paddingTop: '50%',
                         width: '50%',
                         height: '120px',
                         overflowX: 'auto',

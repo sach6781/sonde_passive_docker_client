@@ -20,9 +20,9 @@ class ColorManager extends Component {
     }
 
     updateColors = () => {
-        // Generating a new set of colors - replace this with your logic to fetch new colors
-        const newColors = ['#FF5733', '#33FF57', '#3366FF', '#FF33EA', '#33FFFF', '#F8FF33'];
-
+        // const newColors = ['#FF5733', '#33FF57', '#3366FF', '#FF33EA', '#33FFFF', '#F8FF33'];
+        console.log('Updating to')
+        const newColors = this.props.data;
         this.setState({ colors: newColors });
     };
 

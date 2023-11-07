@@ -316,14 +316,14 @@ class MentalFitness extends React.Component {
         </div>
       </div> */}
 
-                <div style={containerStyle}>
+                {/* <div style={containerStyle}>
                     {all_colors.map((color, index) => (
                         <div
                             key={index}
                             style={{ ...boxStyle, backgroundColor: color }}
                         ></div>
                     ))}
-                </div>
+                </div> */}
 
 
             </div>)
