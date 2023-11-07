@@ -6,6 +6,8 @@ import Enrollment from './Enrollment';
 import Recorder from './Recorder';
 import MentalFitness from './MentalFitness';
 import MyComponent from './MyComponent';
+import ColorChangingBoxes from './ColorChanginBoxes';
+import ColorManager from './ColorManager';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/recorder" element={<Recorder />} />
         <Route path="/mental_fitness" element={<MentalFitness />} />
         <Route path="/test" element={<MyComponent />} />
+        <Route path="/colorBox" element={<ColorChangingBoxes />} />
+        <Route path="/color" element={<ColorManager />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
 

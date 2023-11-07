@@ -32,7 +32,11 @@ class MentalFitness extends React.Component {
                 Guests: 'green',
                 Sachin: 'yellow'
             },
-            boxes: Array(100).fill('gray')
+            boxes: Array(100).fill('gray'),
+            movingBoxIndex: 0,
+            colors: Array(100).fill('white'), // Filling 100 boxes with gray color
+            // updateInterval: 500, // Interval for color updates in milliseconds
+            intervalId: null,
         }
         this.micRecorder = new MicRecorder({ bitRate: 128 });
     }
@@ -40,6 +44,7 @@ class MentalFitness extends React.Component {
 
     componentDidMount() {
         // this.interval = setInterval(this.updateUserAction, 3000);
+        // this.startAnimation();
         this.fetchAgentHistory()
         setTimeout(() => {
             this.getRemainingChunks();
@@ -75,7 +80,8 @@ class MentalFitness extends React.Component {
                             const blobURL = URL.createObjectURL(blob);
                             this.setState({ blobURL });
                             this.generateVoiceFeatures(blob);
-                            
+                            this.startAnimation();
+
                         });
                     this.micRecorder.start(); // Resume recording
                 }
@@ -114,14 +120,14 @@ class MentalFitness extends React.Component {
                 console.log("Got the response from server for voice features - ", result)
                 if (result.hasOwnProperty('code')) {
                     this.setState({ statusToShow: 'Silence detected' })
-                    this.updateUserAction('red');
+                    // this.updateUserAction('red');
                 }
                 if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
                     const user = result[0].user_identifier
                     console.log('Identified User - ', user)
                     const { colorMap } = this.state;
                     const colorForGuests = colorMap[user];
-                    this.updateUserAction(colorForGuests);
+                    // this.updateUserAction(colorForGuests);
                     this.setState({ statusToShow: 'Voice detected', verified_user: result[0].user_identifier })
                     this.setState(prevState => ({
                         remainingChunks: prevState.remainingChunks + result[0].chunks * 3
@@ -186,7 +192,33 @@ class MentalFitness extends React.Component {
         return boxes;
     };
 
-    updateUserAction = (color_resp) => {
+
+
+    updateUserAction = () => {
+        const { movingBoxIndex, colors } = this.state;
+        const color = '#' + Math.floor(Math.random() * 16777215).toString(16); // Simulated color change logic
+
+        const updatedColors = [...colors];
+        updatedColors[movingBoxIndex] = color;
+        this.setState({ colors: updatedColors });
+    };
+
+    startAnimation = () => {
+        const intervalId = setInterval(() => {
+            this.updateUserAction();
+            this.setState(prevState => {
+                const nextIndex = prevState.movingBoxIndex + 1;
+                if (nextIndex >= prevState.totalBoxes) {
+                    clearInterval(prevState.intervalId);
+                }
+                return { movingBoxIndex: nextIndex };
+            });
+        }, 3000);
+
+        this.setState({ intervalId });
+    };
+
+    updateUserAction1 = (color_resp) => {
         const { users, boxes } = this.state;
         const color = color_resp
 
@@ -201,6 +233,22 @@ class MentalFitness extends React.Component {
 
     render() {
         const { boxes } = this.state;
+        const { colors, movingBoxIndex } = this.state;
+        const all_colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#C0C0C0', '#800080', '#008000', '#000080']
+        const containerStyle = {
+            width: '80%', // Adjust the width as needed
+            border: '1px solid #000',
+            overflowX: 'auto', // Enable horizontal scrolling
+            whiteSpace: 'nowrap', // Ensure boxes stay in a single row
+            display: 'flex' // Ensure flex display for the container
+        };
+
+        const boxStyle = {
+            width: '100px', // Set box width
+            height: '100px', // Set box height
+            margin: '5px',
+            display: 'inline-block'
+        };
         return (
             <div>
                 <Header />
@@ -237,22 +285,46 @@ class MentalFitness extends React.Component {
                     </div>
                 </div> */}
 
-                <div style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
-                    {boxes.map((color, index) => (
+
+                {/* <div style={{ textAlign: 'center', padding: '20px', overflowX: 'auto'}} hidden={!this.state.isRecording}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <div
+            style={{
+              display: 'inline-flex',
+              marginLeft: '50px', // Adjust the left margin as needed
+              marginRight: '50px', // Adjust the right margin as needed
+              animation: `moveLeft ${(this.state.totalBoxes * this.state.updateInterval) / 3000}s linear infinite`,
+            }}
+          >
+            {colors.map((color, index) => (
+              <div
+                key={index}
+                style={{
+                  width: '30px',
+                  height: '30px',
+                  backgroundColor: color,
+                  marginRight: '5px',
+                }}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </div> */}
+
+                <div style={containerStyle}>
+                    {all_colors.map((color, index) => (
                         <div
                             key={index}
-                            style={{
-                                border: '1px solid #000',
-                                width: '13px',
-                                height: '2px',
-                                display: 'inline-block',
-                                padding: '4px',
-                                transition: 'background-color 0.5s, transform 0.3s',
-                                backgroundColor: color,
-                            }}
-                        />
+                            style={{ ...boxStyle, backgroundColor: color }}
+                        ></div>
                     ))}
                 </div>
+
 
             </div>)
     }

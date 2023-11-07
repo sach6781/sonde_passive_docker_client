@@ -1,0 +1,65 @@
+import React, { Component } from 'react';
+
+class ColorChangingBoxes extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            boxes: [],
+        };
+        this.boxContainerRef = React.createRef();
+    }
+
+    addBox = (color) => {
+        const newBox = (
+            <span
+                key={this.state.boxes.length}
+                style={{
+                    border: '1px solid #000',
+                    width: '13px',
+                    height: '1px',
+                    display: 'inline-block',
+                    padding: '4px',
+                    transition: 'background-color 0.5s, transform 0.3s',
+                    backgroundColor: color
+                }}
+            />
+        );
+
+        this.setState(prevState => ({
+            boxes: [...prevState.boxes, newBox],
+        }), () => {
+            if (this.boxContainerRef.current) {
+                this.boxContainerRef.current.scrollLeft = this.boxContainerRef.current.scrollWidth;
+            }
+        });
+    };
+
+    render() {
+        return (
+            <div style={{ display: 'flex' }}>
+                <div
+                    className="box-container"
+                    style={{
+                        width: '50%',
+                        height: '120px',
+                        overflowX: 'auto',
+                    }}
+                    ref={this.boxContainerRef}
+                >
+                    <div style={{ display: 'flex' }}>
+                        {this.state.boxes.map((box, index) => (
+                            <div key={index} style={{ marginRight: '1px' }}>
+                                {box}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div style={{ width: '50%' }}>
+                    {/* Other content goes here */}
+                </div>
+            </div>
+        );
+    }
+}
+
+export default ColorChangingBoxes;
