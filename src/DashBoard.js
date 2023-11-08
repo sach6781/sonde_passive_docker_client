@@ -76,6 +76,10 @@ class DashBoard extends React.Component {
         this.intervalId = setInterval(this.fetchData, 3000);
     }
 
+    fillFast = () => {
+        this.refs.child.addBox('gray');
+    }
+
     fetchData = () => {
         console.log('Called API to get chunks for names - ', this.state.names)
         const promises = this.state.names.map((name) =>
@@ -178,9 +182,24 @@ class DashBoard extends React.Component {
                             data[item] = [];
                         });
 
+                        const darkColors = [
+                            'green', // Dark blue
+                            'blue', // Dark slate gray
+                            'purple', // Dark purple
+                            'orange', // Dark slate blue
+                            'violet', // Dark navy blue
+                            '#6C3483', // Dark moderate violet
+                            '#424949', // Smoky black
+                            '#283747', // Dark jet
+                            '#4E6C9D', // Dark cornflower blue
+                            '#2C2C54' // Dark midnight blue
+                          ];
+
                         let userColors = {};
-                        all_enrolled_users.forEach(user => {
-                            userColors[user] = '#' + Math.floor(Math.random()*16777215).toString(16); // Assign a random color to each user
+                        all_enrolled_users.forEach((user, index) => {
+                            const colorIndex = index % darkColors.length;
+                            // userColors[user] = '#' + Math.floor(Math.random()*16777215).toString(16); // Assign a random color to each user
+                            userColors[user] = darkColors[colorIndex];
                         });
 
                         console.log('Color map is - ', userColors)
@@ -193,7 +212,7 @@ class DashBoard extends React.Component {
     }
 
     generateVoiceFeatures = (recorded_data) => {
-        this.setState({ unverified: false, verified_user: '' })
+        this.setState({ unverified: false, verified_user: ' ' })
         console.log('Invoking server to get the voice feature response for recorded_data - ', recorded_data)
         const formData = new FormData();
         formData.append("webmasterfile", recorded_data);
@@ -241,12 +260,14 @@ class DashBoard extends React.Component {
     render() {
         return (<div style={{ height: '400px', overflowY: 'auto' }}>
             <Header />
-            <ScoreSlider data={this.state.userHistory} name_chunks_map={this.state.chunksMap} />
+            <ScoreSlider data={this.state.userHistory} name_chunks_map={this.state.chunksMap} user_color_map={this.state.user_color_map}/>
             {/* <ColorChangingBoxes ref="child" /> */}
             <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "0%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
                 {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}
             </button>
             <div style={{ bottom: "0%" }} hidden={!this.state.isRecording}>
+                <br>
+                </br>
             <ColorChangingBoxes ref="child" />
                 <h3>
                     We are analyzing your vocal biomarkers </h3>
@@ -256,7 +277,6 @@ class DashBoard extends React.Component {
                 {this.state.unverified ? <h3> Unverified voice</h3> : <h3>
                     {this.state.verified_user} </h3>}
             </div>
-
             
             {/* {this.state.blobURL && (
                 <audio controls src={this.state.blobURL} />

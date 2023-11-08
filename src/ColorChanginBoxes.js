@@ -17,9 +17,10 @@ class ColorChangingBoxes extends Component {
                 style={{
                     border: '1px solid #000',
                     width: '13px',
-                    height: '10px',
+                    height: '2px',
                     display: 'inline-block',
                     padding: '4px',
+                    margin: '2px',
                     transition: 'background-color 0.5s, transform 0.3s',
                     backgroundColor: color
                 }}
@@ -41,9 +42,11 @@ class ColorChangingBoxes extends Component {
                 <div
                     className="box-container"
                     style={{
-                        width: '50%',
-                        height: '10px',
+                        width: '70%',
+                        height: '30px',
                         overflowX: 'auto',
+                        padding: '10px',
+                        left: '30%'
                     }}
                     ref={this.boxContainerRef}
                 >
@@ -54,9 +57,6 @@ class ColorChangingBoxes extends Component {
                             </div>
                         ))}
                     </div>
-                </div>
-                <div style={{ width: '50%' }}>
-                    {/* Other content goes here */}
                 </div>
             </div>
         );

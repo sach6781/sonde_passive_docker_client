@@ -129,7 +129,7 @@ class ScoreSlider extends Component {
     const boxes = [];
     
     for (let i = 0; i < totalBoxes; i++) {
-      const color = i < filledRed ? 'blue' : 'gray';
+      const color = i < filledRed ? '#30A7FF' : 'gray';
       
       boxes.push(
         <span
@@ -156,6 +156,7 @@ class ScoreSlider extends Component {
   render() {
     const test_data = this.props.data;
     const chunk_map = this.props.name_chunks_map;
+    const user_color_map = this.props.user_color_map;
     const isEmpty = Object.keys(test_data).length === 0;
     const crossStyle = {
       width: '25px',
@@ -187,19 +188,22 @@ class ScoreSlider extends Component {
 
               {/* <h2><button style={{ 'background-color': 'transparent', 'border': 'none', cursor: 'pointer', fontSize: '18px' }}
                 onClick={() => this.getRemainingChunks(name)}>{name} {chunk_map[name]} </button></h2> */}
-              <h6 style={{ margin: 0, padding: '5px 0'}}>
               
+              <h6 style={{ margin: 0, padding: '1px 0', color: user_color_map[name]}}>
+              <br></br>
               {name} 
               
               {/* Commenting this. */}
               {chunk_map !== 10000 ? <h>( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0 } / 30 sec.) </h> : ''}
               {/* Commenting till here  */}
-              <br></br>
+              <br>
+              </br>
               
               {this.renderBoxes(chunk_map[name] / 3)}
               {/* {name} ( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0} / 30 sec.)  */}
-              <br></br>
+              
               </h6>
+              
 
               {test_data[name].map((data, index) => (
                 <span
