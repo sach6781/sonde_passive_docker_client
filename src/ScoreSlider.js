@@ -46,6 +46,7 @@ var percentColors = [
   { pct: 0.0, color: { r: 0xa5, g: 0x00, b: 0 } }];
 
 var getColorForPercentage = function (pct) {
+  if(pct >= 70) {return 'green'}
   for (var i = 1; i < percentColors.length - 1; i++) {
     if (pct < percentColors[i].pct) {
       break;
@@ -129,7 +130,7 @@ class ScoreSlider extends Component {
     const boxes = [];
     
     for (let i = 0; i < totalBoxes; i++) {
-      const color = i < filledRed ? '#30A7FF' : 'gray';
+      const color = i < filledRed ? '#30A7FF' : '#E7EDED';
       
       boxes.push(
         <span
@@ -137,7 +138,7 @@ class ScoreSlider extends Component {
           style={{
             borderRadius: '3px',
             border: '1px solid #000',
-            width: '6px',
+            width: '10px',
             height: '0.0px',
             display: 'inline-block',
             padding: '4px',
@@ -189,7 +190,7 @@ class ScoreSlider extends Component {
               {/* <h2><button style={{ 'background-color': 'transparent', 'border': 'none', cursor: 'pointer', fontSize: '18px' }}
                 onClick={() => this.getRemainingChunks(name)}>{name} {chunk_map[name]} </button></h2> */}
               
-              <h6 style={{ margin: 0, padding: '1px 0', color: user_color_map[name]}}>
+              <h4 style={{ margin: 0, padding: '1px 0', color: user_color_map[name]}}>
               <br></br>
               {name} 
               
@@ -202,7 +203,7 @@ class ScoreSlider extends Component {
               {this.renderBoxes(chunk_map[name] / 3)}
               {/* {name} ( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0} / 30 sec.)  */}
               
-              </h6>
+              </h4>
               
 
               {test_data[name].map((data, index) => (
@@ -211,12 +212,12 @@ class ScoreSlider extends Component {
                   key={index}
                   style={{
                     borderRadius: '6px',
-                    width: '9px',
-                    height: '9px',
+                    width: '13px',
+                    height: '13px',
                     border: '1px solid #000',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    fontSize: '7px',
+                    fontSize: '10px',
                     fontWeight: 'bold',
                     padding: '5px',
                     margin: '2px',
@@ -263,11 +264,11 @@ class ScoreSlider extends Component {
                     border: '1px solid #000',
                     padding: '6px',
                     margin: '2px',
-                    fontSize: '5.5px',
+                    fontSize: '8.25px',
                     color: 'white', // Access the score property
                     
                   }}
-                > A
+                > A.
                 </span>
                 
               ))}

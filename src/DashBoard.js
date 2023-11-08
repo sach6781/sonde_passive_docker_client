@@ -77,7 +77,7 @@ class DashBoard extends React.Component {
     }
 
     fillFast = () => {
-        this.refs.child.addBox('gray');
+        this.refs.child.addBox('#A42518');
     }
 
     fetchData = () => {
@@ -184,9 +184,9 @@ class DashBoard extends React.Component {
 
                         const darkColors = [
                             'green', // Dark blue
-                            'blue', // Dark slate gray
-                            'purple', // Dark purple
-                            'orange', // Dark slate blue
+                            '#A42518', // Dark slate gray
+                            '#DEC704', // Dark purple
+                            '#BA6EBD', // Dark slate blue
                             'violet', // Dark navy blue
                             '#6C3483', // Dark moderate violet
                             '#424949', // Smoky black
@@ -229,7 +229,7 @@ class DashBoard extends React.Component {
                 // console.log("Got the response from server for voice features - ", result)
                 if (result.hasOwnProperty('code')) {
                     this.setState({ unverified: true })
-                    this.refs.child.addBox('gray');
+                    this.refs.child.addBox('#B7BEBE');
                 }
                 if (Array.isArray(result) && result.length > 0 && result[0].hasOwnProperty('chunks') && result[0].chunks === 1) {
                     this.setState({ unverified: false, verified_user: result[0].user_identifier + "'s voice" })
@@ -258,7 +258,7 @@ class DashBoard extends React.Component {
     };
 
     render() {
-        return (<div style={{ height: '400px', overflowY: 'auto' }}>
+        return (<div style={{ height: '400px'}}>
             <Header />
             <ScoreSlider data={this.state.userHistory} name_chunks_map={this.state.chunksMap} user_color_map={this.state.user_color_map}/>
             {/* <ColorChangingBoxes ref="child" /> */}
