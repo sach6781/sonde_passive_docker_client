@@ -1,17 +1,17 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./Home.css"; // Import your CSS file
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import './Home.css' // Import your CSS file
 
-function Home() {
-  const navigate = useNavigate();
+function Home () {
+  const navigate = useNavigate()
 
   const redirectToAnother = () => {
-    navigate("/dashboard");
-  };
+    navigate('/dashboard')
+  }
 
   const redirectToEnrollment = () => {
-    navigate("/enrollment");
-  };
+    navigate('/enrollment')
+  }
 
   return (
     <div>
@@ -22,33 +22,33 @@ function Home() {
       <div>
         <div
           style={{
-            border: "1.5px solid #30A7FF",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "30%",
-            height: "10%",
-            backgroundColor: "#00344E",
-            borderRadius: "15px",
-            padding: "13px",
-            color: "#b2dfee",
+            border: '1.5px solid #30A7FF',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '30%',
+            height: '10%',
+            backgroundColor: '#00344E',
+            borderRadius: '15px',
+            padding: '13px',
+            color: '#b2dfee'
           }}
         >
           <h1
             style={{
-              padding: "30px",
-              margin: "12px",
-              position: "absolute",
-              left: "40%",
-              transform: "translate(-50%, -40%)",
+              padding: '30px',
+              margin: '12px',
+              position: 'absolute',
+              left: '40%',
+              transform: 'translate(-50%, -40%)'
             }}
           >
             <Link
               style={{
-                textDecoration: "none",
-                color: "white",
-                fontSize: "20px",
+                textDecoration: 'none',
+                color: 'white',
+                fontSize: '20px'
               }}
               to="/dashboard"
             >
@@ -61,33 +61,33 @@ function Home() {
 
         <div
           style={{
-            border: "1.5px solid #30A7FF",
-            position: "absolute",
-            top: "70%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "30%",
-            height: "10%",
-            backgroundColor: "#00344E",
-            borderRadius: "15px",
-            padding: "13px",
-            color: "#b2dfee",
+            border: '1.5px solid #30A7FF',
+            position: 'absolute',
+            top: '70%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '30%',
+            height: '10%',
+            backgroundColor: '#00344E',
+            borderRadius: '15px',
+            padding: '13px',
+            color: '#b2dfee'
           }}
         >
           <h1
             style={{
-              padding: "30px",
-              margin: "12px",
-              position: "absolute",
-              left: "40%",
-              transform: "translate(-50%, -40%)",
+              padding: '30px',
+              margin: '12px',
+              position: 'absolute',
+              left: '40%',
+              transform: 'translate(-50%, -40%)'
             }}
           >
             <Link
               style={{
-                textDecoration: "none",
-                color: "white",
-                fontSize: "20px",
+                textDecoration: 'none',
+                color: 'white',
+                fontSize: '20px'
               }}
               to="/enrollment"
             >
@@ -98,33 +98,33 @@ function Home() {
 
         <div
           style={{
-            border: "1.5px solid #30A7FF",
-            position: "absolute",
-            top: "90%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "30%",
-            height: "10%",
-            backgroundColor: "#00344E",
-            borderRadius: "15px",
-            padding: "13px",
-            color: "#b2dfee",
+            border: '1.5px solid #30A7FF',
+            position: 'absolute',
+            top: '90%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '30%',
+            height: '10%',
+            backgroundColor: '#00344E',
+            borderRadius: '15px',
+            padding: '13px',
+            color: '#b2dfee'
           }}
         >
           <h1
             style={{
-              padding: "20px",
-              margin: "15px",
-              position: "absolute",
-              left: "40%",
-              transform: "translate(-50%, -40%)",
+              padding: '20px',
+              margin: '15px',
+              position: 'absolute',
+              left: '40%',
+              transform: 'translate(-50%, -40%)'
             }}
           >
             <Link
               style={{
-                textDecoration: "none",
-                color: "white",
-                fontSize: "20px",
+                textDecoration: 'none',
+                color: 'white',
+                fontSize: '20px'
               }}
               to="/mental_fitness"
             >
@@ -141,7 +141,7 @@ function Home() {
         </div> */}
       </div>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

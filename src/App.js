@@ -1,22 +1,22 @@
-import "./App.css";
+import './App.css'
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
-  Link,
-} from "react-router-dom";
-import DashBoard from "./DashBoard";
-import Home from "./Home";
-import Enrollment from "./Enrollment";
-import Recorder from "./Recorder";
-import MentalFitness from "./MentalFitness";
-import MyComponent from "./MyComponent";
-import ColorChangingBoxes from "./ColorChanginBoxes";
-import ColorManager from "./ColorManager";
-import RecordAudio from "./RecordAudio";
+  Link
+} from 'react-router-dom'
+import DashBoard from './DashBoard'
+import Home from './Home'
+import Enrollment from './Enrollment'
+import Recorder from './Recorder'
+import MentalFitness from './MentalFitness'
+import MyComponent from './MyComponent'
+import ColorChangingBoxes from './ColorChanginBoxes'
+import ColorManager from './ColorManager'
+import RecordAudio from './RecordAudio'
 
-function App() {
+function App () {
   return (
     <div className="App">
       <Routes>
@@ -32,7 +32,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

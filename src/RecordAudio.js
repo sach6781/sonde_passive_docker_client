@@ -1,61 +1,61 @@
-import React, { useState, useEffect } from "react";
-import RecordRTC from "recordrtc";
+import React, { useState, useEffect } from 'react'
+import RecordRTC from 'recordrtc'
 
 const RecordAudio = () => {
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioBlob, setAudioBlob] = useState(null);
-  const [recordRTC, setRecordRTC] = useState(null);
+  const [isRecording, setIsRecording] = useState(false)
+  const [audioBlob, setAudioBlob] = useState(null)
+  const [recordRTC, setRecordRTC] = useState(null)
 
   useEffect(() => {
     const initRecordRTC = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-        });
+          audio: true
+        })
         const recorder = RecordRTC(stream, {
-          type: "audio",
-          mimeType: "audio/wav",
+          type: 'audio',
+          mimeType: 'audio/wav',
           recorderType: RecordRTC.StereoAudioRecorder,
-          numberOfAudioChannels: 1,
-        });
-        setRecordRTC(recorder);
+          numberOfAudioChannels: 1
+        })
+        setRecordRTC(recorder)
       } catch (error) {
-        console.error("Error accessing microphone:", error);
+        console.error('Error accessing microphone:', error)
       }
-    };
+    }
 
-    initRecordRTC();
-  }, []);
+    initRecordRTC()
+  }, [])
 
   const startRecording = () => {
     if (recordRTC) {
-      recordRTC.startRecording();
-      setIsRecording(true);
+      recordRTC.startRecording()
+      setIsRecording(true)
     }
-  };
+  }
 
   const stopRecording = () => {
     if (recordRTC) {
       recordRTC.stopRecording(() => {
-        const blob = recordRTC.getBlob();
-        setAudioBlob(blob);
-        setIsRecording(false);
-      });
+        const blob = recordRTC.getBlob()
+        setAudioBlob(blob)
+        setIsRecording(false)
+      })
     }
-  };
+  }
 
   const saveRecording = () => {
     if (audioBlob) {
-      const url = URL.createObjectURL(audioBlob);
-      const a = document.createElement("a");
-      document.body.appendChild(a);
-      a.style = "display: none";
-      a.href = url;
-      a.download = "recordedAudio.wav";
-      a.click();
-      window.URL.revokeObjectURL(url);
+      const url = URL.createObjectURL(audioBlob)
+      const a = document.createElement('a')
+      document.body.appendChild(a)
+      a.style = 'display: none'
+      a.href = url
+      a.download = 'recordedAudio.wav'
+      a.click()
+      window.URL.revokeObjectURL(url)
     }
-  };
+  }
 
   return (
     <div>
@@ -76,7 +76,7 @@ const RecordAudio = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default RecordAudio;
+export default RecordAudio
