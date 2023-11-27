@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import RecordRTC from 'recordrtc';
+import React, { useState, useEffect } from "react";
+import RecordRTC from "recordrtc";
 
 const RecordAudio = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -9,16 +9,18 @@ const RecordAudio = () => {
   useEffect(() => {
     const initRecordRTC = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
         const recorder = RecordRTC(stream, {
-          type: 'audio',
-          mimeType: 'audio/wav',
+          type: "audio",
+          mimeType: "audio/wav",
           recorderType: RecordRTC.StereoAudioRecorder,
           numberOfAudioChannels: 1,
         });
         setRecordRTC(recorder);
       } catch (error) {
-        console.error('Error accessing microphone:', error);
+        console.error("Error accessing microphone:", error);
       }
     };
 
@@ -45,11 +47,11 @@ const RecordAudio = () => {
   const saveRecording = () => {
     if (audioBlob) {
       const url = URL.createObjectURL(audioBlob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       document.body.appendChild(a);
-      a.style = 'display: none';
+      a.style = "display: none";
       a.href = url;
-      a.download = 'recordedAudio.wav';
+      a.download = "recordedAudio.wav";
       a.click();
       window.URL.revokeObjectURL(url);
     }

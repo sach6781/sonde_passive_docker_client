@@ -1,14 +1,20 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
-import DashBoard from './DashBoard';
-import Home from './Home';
-import Enrollment from './Enrollment';
-import Recorder from './Recorder';
-import MentalFitness from './MentalFitness';
-import MyComponent from './MyComponent';
-import ColorChangingBoxes from './ColorChanginBoxes';
-import ColorManager from './ColorManager';
-import RecordAudio from './RecordAudio';
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  Link,
+} from "react-router-dom";
+import DashBoard from "./DashBoard";
+import Home from "./Home";
+import Enrollment from "./Enrollment";
+import Recorder from "./Recorder";
+import MentalFitness from "./MentalFitness";
+import MyComponent from "./MyComponent";
+import ColorChangingBoxes from "./ColorChanginBoxes";
+import ColorManager from "./ColorManager";
+import RecordAudio from "./RecordAudio";
 
 function App() {
   return (
@@ -25,7 +31,6 @@ function App() {
         <Route path="/test1" element={<RecordAudio />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
-
     </div>
   );
 }
