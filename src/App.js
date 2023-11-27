@@ -8,6 +8,7 @@ import MentalFitness from './MentalFitness';
 import MyComponent from './MyComponent';
 import ColorChangingBoxes from './ColorChanginBoxes';
 import ColorManager from './ColorManager';
+import RecordAudio from './RecordAudio';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/test" element={<MyComponent />} />
         <Route path="/colorBox" element={<ColorChangingBoxes />} />
         <Route path="/color" element={<ColorManager />} />
+        <Route path="/test1" element={<RecordAudio />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
 
