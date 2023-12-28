@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sonde_passive_docker_client/static/css/main.073c9b0a.css",
-    "main.js": "/sonde_passive_docker_client/static/js/main.13e1a66a.js",
-    "static/js/787.b060116f.chunk.js": "/sonde_passive_docker_client/static/js/787.b060116f.chunk.js",
-    "index.html": "/sonde_passive_docker_client/index.html",
-    "main.073c9b0a.css.map": "/sonde_passive_docker_client/static/css/main.073c9b0a.css.map",
-    "main.13e1a66a.js.map": "/sonde_passive_docker_client/static/js/main.13e1a66a.js.map",
-    "787.b060116f.chunk.js.map": "/sonde_passive_docker_client/static/js/787.b060116f.chunk.js.map"
+    "main.css": "/static/css/main.073c9b0a.css",
+    "main.js": "/static/js/main.5fc51700.js",
+    "static/js/787.b060116f.chunk.js": "/static/js/787.b060116f.chunk.js",
+    "index.html": "/index.html",
+    "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
+    "main.5fc51700.js.map": "/static/js/main.5fc51700.js.map",
+    "787.b060116f.chunk.js.map": "/static/js/787.b060116f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.13e1a66a.js"
+    "static/js/main.5fc51700.js"
   ]
 }
