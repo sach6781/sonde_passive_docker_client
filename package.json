@@ -1,6 +1,5 @@
 {
   "name": "sonde_passive_docker_client",
-  "homepage": "https://sach6781.github.io/sonde_passive_docker_client/",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
