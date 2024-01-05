@@ -18,6 +18,9 @@ class MentalFitness extends React.Component {
             statusToShow: '',
             chunksMap: { 'Guests': 10 },
             intervalId: null,
+            user_color_map: {
+                'Guests': '#2C2C54'
+            }
         }
         this.micRecorder = new MicRecorder({ bitRate: 128 });
     }
@@ -236,7 +239,7 @@ class MentalFitness extends React.Component {
                 <h1>
                     Mental Fitness
                 </h1>
-                <ScoreSlider data={this.state.userHistory} name_chunks_map={10000} />
+                <ScoreSlider data={this.state.userHistory} name_chunks_map={10000} user_color_map={this.state.user_color_map}/>
                 <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "5%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
                     {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}
                 </button>

@@ -202,8 +202,10 @@ class DashBoard extends React.Component {
                             userColors[user] = darkColors[colorIndex];
                         });
 
+                        
+                        userColors.Guests = '#2C2C54'
                         console.log('Color map is - ', userColors)
-
+                        
                         this.setState({ names: all_enrolled_users, user_color_map: userColors })
                         console.log('Setting the users score - ', data)
                         this.setState({ userHistory: data })
@@ -235,6 +237,8 @@ class DashBoard extends React.Component {
                     this.setState({ unverified: false, verified_user: result[0].user_identifier + "'s voice" })
                     this.refs.child.addBox(this.state.user_color_map[result[0].user_identifier]);
                 }
+
+                console.log("***************** COLOR MAP - ", this.state.user_color_map)
 
                 this.setState({ enrollmentStatus: true, enrollmentProgress: false })
             })

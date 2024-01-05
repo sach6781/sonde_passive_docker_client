@@ -178,7 +178,7 @@ class Recorder extends React.Component {
                 </div>
                 <br>
                 </br>
-                <div hidden={!this.state.enrollCall}> Submitting enrollment data
+                <div hidden={!this.state.enrollCall}> Voice Sample Recieved; submitting enrollment sample.
 
                 </div>
 
@@ -193,7 +193,7 @@ class Recorder extends React.Component {
                     {this.state.showPopup && (
                         <div style={popupStyle}>
                             <div style={popupContentStyle}>
-                                <p>Enrollment completed successfully</p>
+                                <p>Enrollment successful</p>
                                 <button style={closeButtonStyle} onClick={this.handleContinueClick}>
                                     <Link style={{ textDecoration: 'none', color: 'white' }} to="/enrollment"> Continue </Link>
                                 </button>

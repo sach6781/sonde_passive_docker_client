@@ -13,7 +13,8 @@ function Header() {
     textDecoration: 'none', // Remove underline from links
     color: '#b2dfee', // Customize link color
     padding: 5,
-    margin: 5
+    margin: 5,
+    fontSize: '12px'
   };
 
   const headerStyle = {

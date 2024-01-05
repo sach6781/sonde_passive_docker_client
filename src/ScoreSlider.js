@@ -195,7 +195,7 @@ class ScoreSlider extends Component {
               {name} 
               
               {/* Commenting this. */}
-              {chunk_map !== 10000 ? <h>( {chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0 } / 30 sec.) </h> : ''}
+              {chunk_map !== 10000 ?  <h> ({chunk_map[name] !== undefined && chunk_map[name] !== null ? chunk_map[name] : 0 }/30 sec.) </h> : ''}
               {/* Commenting till here  */}
               <br>
               </br>
