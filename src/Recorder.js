@@ -75,7 +75,8 @@ class Recorder extends React.Component {
             enrollmentProgress: false,
             user_name: null,
             showPopup: false,
-            enrollCall: false
+            enrollCall: false,
+            counter: 30
         };
         this.micRecorder = new MicRecorder({ bitRate: 128 });
 
@@ -124,8 +125,17 @@ class Recorder extends React.Component {
             }).catch((e) => console.log(e));
     };
 
+    updateCounter = () => {
+        // Function to update the counter every second
+        this.interval = setInterval(() => {
+          this.setState((prevState) => ({ counter: prevState.counter - 1 }));
+        }, 1000);
+      };
+
+
     start = () => {
         this.setState({ currentAction: 'ENROLL', enrollmentProgress: true })
+        this.updateCounter()
         if (this.state.isBlocked) {
             console.log('Permission Denied');
         } else {
@@ -134,6 +144,8 @@ class Recorder extends React.Component {
             }).catch((e) => console.error(e));
         }
     };
+
+
 
 
     handleInputChange = (event) => {
@@ -166,19 +178,24 @@ class Recorder extends React.Component {
                 <br>
                 </br>
                 <div hidden={!this.state.enrollmentProgress}>
-                    <h3>Enrolling</h3>
-                    <h3>Please give 30 seconds of voice sample
-                    </h3>
-                    <h3>
-                        (on any topic)
+                    <h3>Enrolling
+                    <br></br>Please give 30 seconds of voice sample
+                    <br>
+                    </br>
+                        (on any topic) </h3>  
+                        <h3>
+                        <br>
+                        </br>{this.state.counter} - seconds left.
                     </h3>
                     <br>
                     </br>
                     <img src={process.env.PUBLIC_URL + '/recorder.gif'} alt="My Image" />
+                    
                 </div>
                 <br>
                 </br>
-                <div hidden={!this.state.enrollCall}> Voice Sample Recieved; submitting enrollment sample.
+                <div hidden={!this.state.enrollCall}> Voice Sample Recieved; <br>
+                </br>submitting enrollment sample.
 
                 </div>
 

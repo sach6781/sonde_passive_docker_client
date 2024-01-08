@@ -33,9 +33,9 @@ function Home() {
         </br>
 
         <div style={{ border: "1.5px solid #30A7FF", position: 'absolute', top: '70%', left: '50%', transform: 'translate(-50%, -50%)', width: "30%", height: "10%", backgroundColor: "#00344E", borderRadius: "15px", padding: "15px", color: "#b2dfee" }}>
-          <h1 style={{ padding: "4px", margin: "12px", position: 'absolute', left: '40%', transform: 'translate(-50%, -40%)'}}>
-          <Link style={{ textDecoration: 'none', color: 'white', fontSize: '20px'}} to="/mental_fitness">Single User Mode</Link>
-          </h1>
+          <h2 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', padding: "10px", marginLeft: "10%", position: 'absolute', left: '40%', transform: 'translate(-50%, -40%)'}}>
+          <Link style={{ textDecoration: 'none', color: 'white', fontSize: '20px'}} to="/mental_fitness">Single User <br/>Mode</Link>
+          </h2>
 
         </div>
 

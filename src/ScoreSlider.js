@@ -175,8 +175,6 @@ class ScoreSlider extends Component {
     };
     return (
       <div>
-
-
         <div >
           {isEmpty ? (
             <>No user score history</>

@@ -13,10 +13,10 @@ class MentalFitness extends React.Component {
             userHistory: [],
             enrollmentStatus: false,
             enrollmentProgress: false,
-            remainingChunks: '',
+            remainingChunks: 0,
             noActiveVoice: false,
             statusToShow: '',
-            chunksMap: { 'Guests': 10 },
+            chunksMap: { 'Guests': '' },
             intervalId: null,
             user_color_map: {
                 'Guests': '#2C2C54'
@@ -45,7 +45,9 @@ class MentalFitness extends React.Component {
             .then(response => response.json())
             .then(result => {
                 this.setState({ remainingChunks: result.chunks * 3 })
-                console.log("chunks are - ", result.chunks * 3)
+                
+                this.setState({chunksMap: {'Guests': result.chunks * 3}})
+                console.log("Chunks Map for Guests are - ", result.chunks * 3)
             });
     }
 
@@ -239,7 +241,7 @@ class MentalFitness extends React.Component {
                 <h1>
                     Mental Fitness
                 </h1>
-                <ScoreSlider data={this.state.userHistory} name_chunks_map={10000} user_color_map={this.state.user_color_map}/>
+                <ScoreSlider data={this.state.userHistory} name_chunks_map={this.state.chunksMap} user_color_map={this.state.user_color_map}/>
                 <button style={{ border: "1.5px solid #30A7FF", position: 'absolute', left: '25%', bottom: "5%", width: "50%", backgroundColor: "#00344E", borderRadius: "15px", padding: "13px", color: "#b2dfee", fontSize: '15px' }} onClick={this.state.isRecording ? this.stopRecording : this.startRecording}>
                     {this.state.isRecording ? 'Stop Analyzing' : 'Start Analyzing'}
                 </button>
